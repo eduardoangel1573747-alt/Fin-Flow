@@ -448,51 +448,60 @@
                     </section>        
 
                     <!-- Cuentas por Cobrar - Rediseño Premium -->
-                    <section class="bg-gradient-to-b from-slate-800 to-slate-800/80 backdrop-blur-xl p-5 sm:p-6 rounded-2xl border border-slate-700/70 shadow-2xl space-y-6 lg:col-span-2">
-                        
+                    <section class="relative overflow-hidden bg-slate-900/90 backdrop-blur-2xl p-5 sm:p-6 rounded-2xl border border-slate-800 shadow-[0_20px_50px_rgba(6,_182,_212,_0.08)] space-y-6 lg:col-span-2">
+    
+                        <!-- Detalle luminoso superior -->
+                        <div class="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent"></div>
+
                         <!-- Header principal con badge decorativo -->
-                        <div class="flex items-center justify-between">
+                        <div class="flex items-center justify-between border-b border-slate-800/80 pb-4">
                             <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 shadow-inner">
+                                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500/20 to-teal-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 shadow-inner">
                                     <i class="fa-solid fa-hand-holding-dollar text-lg"></i>
                                 </div>
                                 <div>
-                                    <h2 class="text-base sm:text-lg font-bold text-white leading-tight" data-i18n="receivablesTitle">
+                                    <h2 class="text-base sm:text-lg font-bold text-white leading-tight tracking-tight" data-i18n="receivablesTitle">
                                         Cuentas por Cobrar
                                     </h2>
                                     <p class="text-xs text-slate-400">Seguimiento del dinero que has prestado a terceros</p>
                                 </div>
                             </div>
-                            <span class="text-xs font-semibold text-cyan-300 bg-cyan-500/10 border border-cyan-500/20 px-3 py-1 rounded-full hidden sm:inline-block">
+                            <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-cyan-300 bg-cyan-500/10 border border-cyan-500/20 px-3 py-1 rounded-full hidden sm:inline-flex">
+                                <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
                                 Por Cobrar
                             </span>
                         </div>
 
-                        <!-- Formulario Grid Reestructurado -->
-                        <form id="receivableForm" onsubmit="addReceivable(event)" class="grid grid-cols-1 sm:grid-cols-12 gap-3.5 bg-slate-900/40 p-3.5 rounded-xl border border-slate-700/50">
+                        <!-- Formulario Grid (Mismas columnas y tamaños originales) -->
+                        <form id="receivableForm" onsubmit="addReceivable(event)" class="grid grid-cols-1 sm:grid-cols-12 gap-3.5 bg-slate-950/50 p-3.5 rounded-xl border border-slate-800/80">
                             
-                            <!-- Nombre de la Persona -->
+                            <!-- Nombre de la Persona (sm:col-span-4) -->
                             <div class="sm:col-span-4">
                                 <label class="block text-[11px] uppercase tracking-wider font-bold text-slate-400 mb-1.5">Persona / Deudor</label>
-                                <input type="text" id="recPerson" placeholder="Ej. Juan Pérez" required class="w-full bg-slate-900/80 border border-slate-700/80 rounded-xl px-3.5 py-2.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition">
+                                <input type="text" id="recPerson" placeholder="Ej. Juan Pérez" required 
+                                    class="w-full bg-slate-900/90 border border-slate-700/70 rounded-xl px-3.5 py-2.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all">
                             </div>
 
-                            <!-- Monto Prestado -->
+                            <!-- Monto Prestado (sm:col-span-3) -->
                             <div class="sm:col-span-3">
                                 <label class="block text-[11px] uppercase tracking-wider font-bold text-slate-400 mb-1.5">Monto Prestado</label>
-                                <input type="number" id="recAmount" placeholder="0.00" step="0.01" min="0" required class="w-full bg-slate-900/80 border border-slate-700/80 rounded-xl px-3.5 py-2.5 text-sm font-semibold text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition">
+                                <input type="number" id="recAmount" placeholder="0.00" step="0.01" min="0" required 
+                                    class="w-full bg-slate-900/90 border border-slate-700/70 rounded-xl px-3.5 py-2.5 text-sm font-semibold text-cyan-300 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all">
                             </div>
 
-                            <!-- Fecha -->
+                            <!-- Fecha (sm:col-span-2) -->
                             <div class="sm:col-span-2">
                                 <label class="block text-[11px] uppercase tracking-wider font-bold text-slate-400 mb-1.5">Fecha</label>
-                                <input type="date" id="recDate" required class="w-full bg-slate-900/80 border border-slate-700/80 rounded-xl px-1 py-1 text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition scheme-dark">
+                                <input type="date" id="recDate" required 
+                                    class="w-full bg-slate-900/90 border border-slate-700/70 rounded-xl px-1 py-1 text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all scheme-dark min-h-[42px]">
                             </div>
 
-                            <!-- Botón Registrar -->
+                            <!-- Botón Registrar (sm:col-span-3) -->
                             <div class="sm:col-span-3 flex items-end">
-                                <button type="submit" class="w-full bg-gradient-to-r from-cyan-600 to-teal-600 hover:from-cyan-500 hover:to-teal-500 active:scale-[0.98] text-white font-bold py-2.5 px-4 rounded-xl text-sm transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-cyan-600/20 cursor-pointer min-h-[42px]" data-i18n="regLoanBtn">
-                                    <i class="fa-solid fa-plus-circle text-base"></i> Registrar Préstamo
+                                <button type="submit" 
+                                    class="w-full h-[42px] bg-gradient-to-r from-cyan-600 to-teal-500 hover:from-cyan-500 hover:to-teal-400 active:scale-[0.98] text-white font-semibold px-3 rounded-xl text-xs transition-all duration-200 flex items-center justify-center gap-1.5 shadow-lg shadow-cyan-600/25 hover:shadow-cyan-500/40 cursor-pointer whitespace-nowrap">
+                                    <i class="fa-solid fa-plus-circle text-sm shrink-0"></i>
+                                    <span data-i18n="regLoanBtn">Registrar Préstamo</span>
                                 </button>
                             </div>
                         </form>
