@@ -160,53 +160,79 @@
             <main class="max-w-7xl mx-auto px-3 sm:px-4 py-4 sm:py-6 space-y-5 sm:space-y-8">
                 <!-- Dashboard Summary -->
                 <section class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2.5 sm:gap-4">
-                    <div class="bg-slate-800 p-3 sm:p-4 rounded-xl border border-slate-700 shadow col-span-2 sm:col-span-1 flex flex-col justify-between">
-                        <div class="flex items-center gap-1.5 text-emerald-400 mb-1">
-                            <i class="fa-solid fa-scale-balanced text-xs sm:text-sm"></i>
-                            <p class="text-[10px] sm:text-xs text-slate-400 uppercase font-bold tracking-wider" data-i18n="netBalance">Balance Disponible</p>
+    
+                    <!-- 1. Balance Disponible (Emerald) -->
+                    <div class="relative overflow-hidden bg-slate-900/90 backdrop-blur-2xl p-3 sm:p-4 rounded-2xl border border-slate-800 shadow-[0_10px_30px_rgba(16,_185,_129,_0.08)] hover:border-emerald-500/30 transition-all duration-200 col-span-2 sm:col-span-1 flex flex-col justify-between">
+                        <div class="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-emerald-500/50 to-transparent"></div>
+                        <div class="flex items-center gap-2 text-emerald-400 mb-1.5">
+                            <span class="w-6 h-6 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0">
+                                <i class="fa-solid fa-scale-balanced text-[11px] sm:text-xs"></i>
+                            </span>
+                            <p class="text-[10px] sm:text-xs text-slate-400 uppercase font-bold tracking-wider truncate" data-i18n="netBalance">Balance Disponible</p>
                         </div>
                         <h3 id="netBalance" class="text-xl sm:text-2xl font-black text-emerald-400 tracking-tight mt-0.5">$0.00</h3>
                     </div>
 
-                    <div class="bg-slate-800 p-3 sm:p-4 rounded-xl border border-slate-700 shadow flex flex-col justify-between">
-                        <div class="flex items-center gap-1.5 text-blue-400 mb-1">
-                            <i class="fa-solid fa-arrow-trend-up text-xs sm:text-sm"></i>
+                    <!-- 2. Ingresos Totales (Blue) -->
+                    <div class="relative overflow-hidden bg-slate-900/90 backdrop-blur-2xl p-3 sm:p-4 rounded-2xl border border-slate-800 shadow-[0_10px_30px_rgba(59,_130,_246,_0.07)] hover:border-blue-500/30 transition-all duration-200 flex flex-col justify-between">
+                        <div class="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-blue-500/50 to-transparent"></div>
+                        <div class="flex items-center gap-2 text-blue-400 mb-1.5">
+                            <span class="w-6 h-6 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center shrink-0">
+                                <i class="fa-solid fa-arrow-trend-up text-[11px] sm:text-xs"></i>
+                            </span>
                             <p class="text-[10px] sm:text-xs text-slate-400 uppercase font-bold tracking-wider truncate" data-i18n="totalIncome">Ingresos Totales</p>
                         </div>
                         <h3 id="totalIncome" class="text-lg sm:text-2xl font-bold text-blue-400 tracking-tight mt-0.5">$0.00</h3>
                     </div>
 
-                    <div class="bg-slate-800 p-3 sm:p-4 rounded-xl border border-slate-700 shadow flex flex-col justify-between">
-                        <div class="flex items-center gap-1.5 text-purple-400 mb-1">
-                            <i class="fa-solid fa-arrow-trend-down text-xs sm:text-sm"></i>
+                    <!-- 3. Gastos Acumulados (Purple) -->
+                    <div class="relative overflow-hidden bg-slate-900/90 backdrop-blur-2xl p-3 sm:p-4 rounded-2xl border border-slate-800 shadow-[0_10px_30px_rgba(168,_85,_247,_0.07)] hover:border-purple-500/30 transition-all duration-200 flex flex-col justify-between">
+                        <div class="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-purple-500/50 to-transparent"></div>
+                        <div class="flex items-center gap-2 text-purple-400 mb-1.5">
+                            <span class="w-6 h-6 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center shrink-0">
+                                <i class="fa-solid fa-arrow-trend-down text-[11px] sm:text-xs"></i>
+                            </span>
                             <p class="text-[10px] sm:text-xs text-slate-400 uppercase font-bold tracking-wider truncate" data-i18n="totalSpent">Gastos Acumulados</p>
                         </div>
                         <h3 id="totalSpent" class="text-lg sm:text-2xl font-bold text-purple-400 tracking-tight mt-0.5">$0.00</h3>
                     </div>
 
-                    <div class="bg-slate-800 p-3 sm:p-4 rounded-xl border border-slate-700 shadow flex flex-col justify-between">
-                        <div class="flex items-center gap-1.5 text-amber-400 mb-1">
-                            <i class="fa-solid fa-piggy-bank text-xs sm:text-sm"></i>
+                    <!-- 4. Total Ahorrado (Amber) -->
+                    <div class="relative overflow-hidden bg-slate-900/90 backdrop-blur-2xl p-3 sm:p-4 rounded-2xl border border-slate-800 shadow-[0_10px_30px_rgba(245,_158,_11,_0.07)] hover:border-amber-500/30 transition-all duration-200 flex flex-col justify-between">
+                        <div class="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-amber-500/50 to-transparent"></div>
+                        <div class="flex items-center gap-2 text-amber-400 mb-1.5">
+                            <span class="w-6 h-6 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center shrink-0">
+                                <i class="fa-solid fa-piggy-bank text-[11px] sm:text-xs"></i>
+                            </span>
                             <p class="text-[10px] sm:text-xs text-slate-400 uppercase font-bold tracking-wider truncate" data-i18n="totalSavings">Total Ahorrado</p>
                         </div>
                         <h3 id="totalSavings" class="text-lg sm:text-2xl font-bold text-amber-400 tracking-tight mt-0.5">$0.00</h3>
                     </div>
 
-                    <div class="bg-slate-800 p-3 sm:p-4 rounded-xl border border-slate-700 shadow flex flex-col justify-between">
-                        <div class="flex items-center gap-1.5 text-cyan-400 mb-1">
-                            <i class="fa-solid fa-hand-holding-dollar text-xs sm:text-sm"></i>
+                    <!-- 5. Te Deben A Ti (Cyan) -->
+                    <div class="relative overflow-hidden bg-slate-900/90 backdrop-blur-2xl p-3 sm:p-4 rounded-2xl border border-slate-800 shadow-[0_10px_30px_rgba(6,_182,_212,_0.07)] hover:border-cyan-500/30 transition-all duration-200 flex flex-col justify-between">
+                        <div class="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent"></div>
+                        <div class="flex items-center gap-2 text-cyan-400 mb-1.5">
+                            <span class="w-6 h-6 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shrink-0">
+                                <i class="fa-solid fa-hand-holding-dollar text-[11px] sm:text-xs"></i>
+                            </span>
                             <p class="text-[10px] sm:text-xs text-slate-400 uppercase font-bold tracking-wider truncate" data-i18n="totalReceivables">Te Deben A Ti</p>
                         </div>
                         <h3 id="totalReceivables" class="text-lg sm:text-2xl font-bold text-cyan-400 tracking-tight mt-0.5">$0.00</h3>
                     </div>
 
-                    <div class="bg-slate-800 p-3 sm:p-4 rounded-xl border border-slate-700 shadow flex flex-col justify-between">
-                        <div class="flex items-center gap-1.5 text-rose-400 mb-1">
-                            <i class="fa-solid fa-file-invoice-dollar text-xs sm:text-sm"></i>
+                    <!-- 6. Deudas Pendientes (Rose) -->
+                    <div class="relative overflow-hidden bg-slate-900/90 backdrop-blur-2xl p-3 sm:p-4 rounded-2xl border border-slate-800 shadow-[0_10px_30px_rgba(244,_63,_94,_0.07)] hover:border-rose-500/30 transition-all duration-200 flex flex-col justify-between">
+                        <div class="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-rose-500/50 to-transparent"></div>
+                        <div class="flex items-center gap-2 text-rose-400 mb-1.5">
+                            <span class="w-6 h-6 rounded-lg bg-rose-500/10 border border-rose-500/20 flex items-center justify-center shrink-0">
+                                <i class="fa-solid fa-file-invoice-dollar text-[11px] sm:text-xs"></i>
+                            </span>
                             <p class="text-[10px] sm:text-xs text-slate-400 uppercase font-bold tracking-wider truncate" data-i18n="totalDebts">Deudas Pendientes</p>
                         </div>
                         <h3 id="totalDebts" class="text-lg sm:text-2xl font-bold text-rose-400 tracking-tight mt-0.5">$0.00</h3>
                     </div>
+
                 </section>
 
                 <!-- Registrar Transacción -->
