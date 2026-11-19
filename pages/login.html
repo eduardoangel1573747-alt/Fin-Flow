@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Fin Flow FPR</title>
+    <title data-i18n="pageTitleLogin">Login - Fin Flow FPR</title>
+    <link rel="icon" type="image/png" href="../img/grafico-de-barras.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>tailwind.config = { darkMode: 'class' }</script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -18,8 +19,8 @@
                 <div class="inline-flex p-3 bg-emerald-500/10 rounded-full text-emerald-400 mb-1">
                     <i class="fa-solid fa-wallet text-3xl"></i>
                 </div>
-                <h2 id="authTitle" class="text-2xl font-bold tracking-wide text-slate-100">Iniciar Sesión</h2>
-                <p id="authSubtitle" class="text-xs text-slate-400">Ingresa a tu panel de gestión financiera</p>
+                <h2 id="authTitle" class="text-2xl font-bold tracking-wide text-slate-100" data-i18n="loginTitle">Iniciar Sesión</h2>
+                <p id="authSubtitle" class="text-xs text-slate-400" data-i18n="loginSubtitle">Ingresa a tu panel de gestión financiera</p>
             </div>
             <div id="authSuccess" class="hidden text-xs text-emerald-400 bg-emerald-950/50 border border-emerald-800/50 p-3 rounded-lg text-center font-medium"></div>
             <!-- Formulario de LOGIN -->
@@ -28,14 +29,14 @@
                 <!-- Campo: Correo Electrónico -->
                 <div>
                     <label for="loginUsername" class="text-xs font-medium text-slate-300 block mb-1.5 tracking-wide">
-                        Correo Electrónico
+                        <span data-i18n="emailLabel">Correo Electrónico</span>
                     </label>
                     <div class="relative">
                         <input type="email" 
                             id="loginUsername" 
                             required 
                             autocomplete="email"
-                            placeholder="ejemplo@correo.com" 
+                            data-i18n-placeholder="emailPlaceholder" placeholder="ejemplo@correo.com"
                             class="w-full bg-slate-800/80 border border-slate-600/80 rounded-xl px-3.5 py-2.5 text-sm text-slate-100 placeholder-slate-400/70 focus:outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/20 transition-all duration-200 shadow-sm">
                     </div>
                 </div>
@@ -44,12 +45,12 @@
                 <div>
                     <div class="flex justify-between items-center mb-1.5">
                         <label for="loginPassword" class="text-xs font-medium text-slate-300 block tracking-wide">
-                            Contraseña
+                            <span data-i18n="passwordLabel">Contraseña</span>
                         </label>
                         <button type="button" 
                                 onclick="showForgotPasswordStep1()" 
                                 class="text-xs text-emerald-400 hover:text-emerald-300 font-medium transition-colors duration-150">
-                            ¿Olvidaste tu contraseña?
+                            <span data-i18n="forgotPassword">¿Olvidaste tu contraseña?</span>
                         </button>
                     </div>
                     <div class="relative">
@@ -67,7 +68,7 @@
                 <!-- Botón de Envío -->
                 <button type="submit" 
                         class="w-full bg-emerald-500 hover:bg-emerald-400 active:bg-emerald-600 text-slate-950 font-semibold py-2.5 px-4 rounded-xl text-sm transition-all duration-200 shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/35 hover:-translate-y-0.5 active:translate-y-0">
-                    Ingresar
+                    <span data-i18n="loginButton">Ingresar</span>
                 </button>
             </form>
             <!-- Formulario de REGISTRO -->
@@ -77,7 +78,7 @@
                 <div class="grid grid-cols-2 gap-3">
                     <div>
                         <label for="regFirstName" class="text-xs font-medium text-slate-300 block mb-1.5 tracking-wide">
-                            Nombres
+                            <span data-i18n="firstNameLabel">Nombres</span>
                         </label>
                         <input type="text" 
                             id="regFirstName" 
@@ -87,7 +88,7 @@
                     </div>
                     <div>
                         <label for="regLastName" class="text-xs font-medium text-slate-300 block mb-1.5 tracking-wide">
-                            Apellidos
+                            <span data-i18n="lastNameLabel">Apellidos</span>
                         </label>
                         <input type="text" 
                             id="regLastName" 
@@ -100,7 +101,7 @@
                 <!-- Campo: Usuario -->
                 <div>
                     <label for="regUsername" class="text-xs font-medium text-slate-300 block mb-1.5 tracking-wide">
-                        Usuario
+                        <span data-i18n="usernameLabel">Usuario</span>
                     </label>
                     <input type="text"
                         id="regUsername"
@@ -110,13 +111,13 @@
                         autocomplete="username"
                         placeholder="juan123"
                         class="w-full bg-slate-800/80 border border-slate-600/80 rounded-xl px-3.5 py-2 text-xs text-slate-100 placeholder-slate-400/70 focus:outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/20 transition-all duration-200 shadow-sm">
-                    <p class="text-[10px] text-slate-500 mt-1">Usa letras, números, punto, guion o guion bajo.</p>
+                    <p class="text-[10px] text-slate-500 mt-1" data-i18n="usernameHint">Usa letras, números, punto, guion o guion bajo.</p>
                 </div>
 
                 <!-- Campo: Correo Electrónico -->
                 <div>
                     <label for="regEmail" class="text-xs font-medium text-slate-300 block mb-1.5 tracking-wide">
-                        Correo Electrónico
+                        <span data-i18n="emailLabel">Correo Electrónico</span>
                     </label>
                     <input type="email" 
                         id="regEmail" 
@@ -128,7 +129,7 @@
                 <!-- Campo: Contraseña -->
                 <div>
                     <label for="regPassword" class="text-xs font-medium text-slate-300 block mb-1.5 tracking-wide">
-                        Contraseña
+                        <span data-i18n="passwordLabel">Contraseña</span>
                     </label>
                     <input type="password" 
                         id="regPassword" 
@@ -143,7 +144,7 @@
                 <!-- Botón de Envío -->
                 <button type="submit" 
                         class="w-full bg-emerald-500 hover:bg-emerald-400 active:bg-emerald-600 text-slate-950 font-semibold py-2.5 px-4 rounded-xl text-xs transition-all duration-200 shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/35 hover:-translate-y-0.5 active:translate-y-0 mt-2">
-                    Crear Cuenta
+                    <span data-i18n="registerButton">Crear Cuenta</span>
                 </button>
 
             </form>
@@ -152,14 +153,14 @@
                 
                 <!-- Texto Descriptivo Informativo -->
                 <p class="text-xs text-slate-300 leading-relaxed bg-slate-800/40 border border-slate-700/60 p-3 rounded-xl">
-                    Ingresa tu correo registrado y te enviaremos un enlace para restablecer tu contraseña.
+                    <span data-i18n="forgotDescription">Ingresa tu correo registrado y te enviaremos un enlace para restablecer tu contraseña.</span>
                 </p>
 
                 <div class="space-y-4">
                     <!-- Campo: Correo Electrónico -->
                     <div>
                         <label for="forgotSearchInput" class="text-xs font-medium text-slate-300 block mb-1.5 tracking-wide">
-                            Correo Electrónico
+                            <span data-i18n="emailLabel">Correo Electrónico</span>
                         </label>
                         <input type="email" 
                             id="forgotSearchInput" 
@@ -171,7 +172,7 @@
                     <!-- Botón de Envío -->
                     <button type="submit" 
                             class="w-full bg-emerald-500 hover:bg-emerald-400 active:bg-emerald-600 text-slate-950 font-semibold py-2.5 px-4 rounded-xl text-xs transition-all duration-200 shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/35 hover:-translate-y-0.5 active:translate-y-0">
-                        Enviar Enlace de Recuperación
+                        <span data-i18n="sendResetLink">Enviar Enlace de Recuperación</span>
                     </button>
                 </div>
 
@@ -182,23 +183,24 @@
                 <button type="button" 
                         onclick="cancelForgot()" 
                         class="w-full bg-slate-800/60 hover:bg-slate-700/80 text-slate-300 border border-slate-700/80 font-medium py-2 px-4 rounded-xl text-xs transition-all duration-200 active:scale-[0.99]">
-                    Volver
+                    <span data-i18n="backBtn">Volver</span>
                 </button>
 
             </form>
            <div class="pt-4 mt-2 border-t border-slate-700/60 text-center">
             <p id="toggleAuthText" class="text-xs text-slate-400">
-                ¿No tienes una cuenta? 
+                <span data-i18n="noAccount">¿No tienes una cuenta?</span>
                 <button onclick="toggleAuthMode()" 
                         type="button"
                         class="text-emerald-400 font-medium hover:text-emerald-300 hover:underline ml-1 transition-colors duration-150 focus:outline-none focus:ring-1 focus:ring-emerald-400/40 rounded-sm">
-                    Crear Cuenta
+                    <span data-i18n="registerButton">Crear Cuenta</span>
                 </button>
             </p>
         </div>
         </div>
     </div>
     
+    <script src="../js/settings-global.js"></script>
     <script type="module">
     import "../config/firebase.js";
 

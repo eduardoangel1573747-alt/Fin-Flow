@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "1484989b-7fc7-410c-b357-ee7afe1c32fa",
+  "status": "current",
+  "command": "deliver",
+  "type": "workflow",
+  "input": "C:\\Users\\ANGEL-IT\\Desktop\\HTML ETC\\ProyeF\\Proyecto-Finanzas\\WorkFlow\\workflow.json",
+  "output": "C:\\Users\\ANGEL-IT\\Desktop\\HTML ETC\\ProyeF\\Proyecto-Finanzas\\workflow.html",
+  "specification": {
+    "sha256": "fbb4b4dbd58543ffaf39fa686dd2b6991fc9211bd67b2b427b66ee9e4e26f8d4",
+    "bytes": 10138
+  },
+  "artifact": {
+    "sha256": "79574d7165ba8a72e85ed88673474268a4b46c9bc09c42c0fa58d5261e2c55ce",
+    "bytes": 864182
+  }
+}

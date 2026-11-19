@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Historial Global - Fin Flow FPR</title>
+    <title data-i18n="pageTitleHistory">Historial Global - Fin Flow FPR</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome icons -->
@@ -37,10 +37,10 @@
                     <i class="fa-solid fa-clock-rotate-left text-lg sm:text-xl"></i>
                 </div>
                 <div>
-                    <h1 class="text-base sm:text-xl font-black bg-gradient-to-r from-purple-400 to-indigo-300 bg-clip-text text-transparent" data-i18n="histPageTitle">
+                    <h1 class="text-base sm:text-xl font-black bg-gradient-to-r from-purple-400 to-indigo-300 bg-clip-text text-transparent" data-i18n="histPageTitleHD">
                         Historial de Transacciones
                     </h1>
-                    <p class="text-[10px] sm:text-xs text-slate-400 hidden sm:block" data-i18n="histPageSub">Registro consolidado de todos los movimientos</p>
+                    <p class="text-[10px] sm:text-xs text-slate-400 hidden sm:block" data-i18n="histPageSubHD">Registro consolidado de todos los movimientos</p>
                 </div>
             </div>
 
@@ -49,7 +49,7 @@
                     <i class="fa-solid fa-arrow-left"></i>
                     <span class="hidden xs:inline" data-i18n="backBtn">Volver al Panel</span>
                 </a>
-                <button onclick="openSettingsModal()" class="bg-slate-700/80 hover:bg-slate-700 text-slate-200 text-xs sm:text-sm font-semibold p-2.5 rounded-lg border border-slate-600/80 transition">
+                <button onclick="window.location.href='pages/Ajustes.html'" class="bg-slate-700/80 hover:bg-slate-700 text-slate-200 text-xs sm:text-sm font-semibold p-2.5 rounded-lg border border-slate-600/80 transition">
                     <i class="fa-solid fa-gear"></i>
                 </button>
             </div>
@@ -59,7 +59,7 @@
     <!-- CONTENIDO PRINCIPAL -->
     <main class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 flex-1 w-full space-y-6">
 
-        <!-- RESUMEN EN TARJETAS (Grid Adaptable a Móvil) -->
+        <!-- RESUMEN EN TARJETAS -->
         <section class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
             <div class="bg-slate-800/60 border border-slate-700/60 p-3.5 sm:p-4 rounded-xl backdrop-blur-sm">
                 <div class="text-[11px] sm:text-xs text-slate-400 font-medium truncate" data-i18n="histInc">Ingresos del Mes</div>
@@ -100,7 +100,7 @@
             </div>
         </section>
 
-        <!-- TABLA CON DESPLAZAMIENTO HORIZONTAL EN SMARTPHONES -->
+        <!-- TABLA -->
         <section class="bg-slate-800/80 border border-slate-700/80 rounded-xl overflow-hidden shadow-xl">
             <div class="overflow-x-auto">
                 <table class="w-full text-left text-xs sm:text-sm border-collapse min-w-[600px]">
@@ -126,95 +126,18 @@
         <p>&copy; <span id="year"></span> Fin Flow FPR. <span data-i18n="rights">Todos los derechos reservados.</span></p>
     </footer>
 
-    <!-- MODAL DE CONFIGURACIÓN SINCRONIZADO -->
-    <div id="settingsModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 z-50 hidden">
-        <div class="bg-slate-800 border border-slate-700 rounded-2xl max-w-sm w-full p-6 space-y-4 shadow-2xl">
-            <div class="flex justify-between items-center border-b border-slate-700 pb-3">
-                <h3 class="font-bold text-slate-100 flex items-center gap-2">
-                    <i class="fa-solid fa-sliders text-purple-400"></i>
-                    <span data-i18n="settingsTitle">Configuración</span>
-                </h3>
-                <button onclick="closeSettingsModal()" class="text-slate-400 hover:text-slate-200 p-1"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            
-            <div class="space-y-3">
-                <div>
-                    <label class="block text-xs font-semibold text-slate-400 mb-1">Idioma / Language</label>
-                    <select id="langSelect" onchange="changeLanguage(this.value)" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-purple-500">
-                        <option value="es">Español</option>
-                        <option value="en">English</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold text-slate-400 mb-1">Moneda / Currency</label>
-                    <select id="currencySelect" onchange="changeCurrency(this.value)" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-purple-500">
-                        <option value="$">USD ($)</option>
-                        <option value="€">EUR (€)</option>
-                        <option value="Q">GTQ (Q)</option>
-                    </select>
-                </div>
-            </div>
 
-            <div class="pt-2">
-                <button onclick="closeSettingsModal()" class="w-full bg-purple-600 hover:bg-purple-500 text-white font-semibold py-2 rounded-lg text-xs transition">
-                    Aceptar / Done
-                </button>
-            </div>
-        </div>
     <script type="module" src="config/firebase.js"></script>
-
-    <!-- CARGA DE SCRIPT PRINCIPAL UNIFICADO -->
-    <script src="js/settings-global.js"></script>
+    <!-- SCRIPT CENTRALIZADO DE TRADUCCIÓN QUE HICIMOS ANTES -->
+    <script type="module" src="js/settings-global.js"></script>
     <script src="js/scrip.js"></script>
     <script>
         document.getElementById('year').innerText = new Date().getFullYear();
 
-        // Inyección unificada del diccionario para el Historial
-        Object.assign(i18n.es, {
-            histPageTitle: "Historial de Transacciones",
-            histPageSub: "Registro consolidado de todos los movimientos",
-            backBtn: "Volver al Panel",
-            histInc: "Ingresos del Mes",
-            histExp: "Gastos del Mes",
-            histRec: "Cobros Recibidos",
-            histDebts: "Deudas Pagadas",
-            lblMonth: "Seleccionar Mes",
-            lblType: "Tipo de Movimiento",
-            optAll: "Todos los Tipos",
-            optExpenses: "Gastos",
-            optIncomes: "Ingresos Directos",
-            optRecPayments: "Cobros Recibidos",
-            optDebtPayments: "Pagos de Deudas",
-            thType: "Tipo",
-            thCat: "Categoría / Origen"
-        });
-
-        Object.assign(i18n.en, {
-            histPageTitle: "Transaction History",
-            histPageSub: "Consolidated record of all movements",
-            backBtn: "Back to Dashboard",
-            histInc: "Month's Income",
-            histExp: "Month's Expenses",
-            histRec: "Received Payments",
-            histDebts: "Paid Debts",
-            lblMonth: "Select Month",
-            lblType: "Movement Type",
-            optAll: "All Types",
-            optExpenses: "Expenses",
-            optIncomes: "Direct Income",
-            optRecPayments: "Collected Loans",
-            optDebtPayments: "Debt Payments",
-            thType: "Type",
-            thCat: "Category / Source"
-        });
-
-        // Al cargar la vista, inicializamos y sincronizamos con el estado global de script.js
         document.addEventListener('DOMContentLoaded', () => {
-            initHistoryPage();
-            
-            // Sincronizar UI y traducción al cargar
-            changeLanguage(currentLang);
-            changeCurrency(currencySymbol);
+            if (typeof initHistoryPage === 'function') {
+                initHistoryPage();
+            }
         });
     </script>
 </body>

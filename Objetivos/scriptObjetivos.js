@@ -179,7 +179,7 @@ function renderSavingsGoals() {
         container.innerHTML = `
             <div class="col-span-full py-12 text-center text-slate-500 text-xs bg-slate-900/30 rounded-2xl border border-dashed border-slate-700/60">
                 <i class="fa-solid fa-lock text-3xl mb-2 block text-slate-600"></i>
-                Por favor inicia sesión para ver y guardar tus metas de ahorro.
+                <span data-i18n="savingsLoginRequired">Por favor inicia sesión para ver y guardar tus metas de ahorro.</span>
             </div>`;
         return;
     }
@@ -188,7 +188,7 @@ function renderSavingsGoals() {
         container.innerHTML = `
             <div class="col-span-full py-12 text-center text-slate-500 text-xs bg-slate-900/30 rounded-2xl border border-dashed border-slate-700/60">
                 <i class="fa-solid fa-bullseye text-3xl mb-2 block text-slate-600"></i>
-                No tienes objetivos de ahorro activos. ¡Crea el primero arriba!
+                <span data-i18n="noSavingsGoals">No tienes objetivos de ahorro activos. ¡Crea el primero arriba!</span>
             </div>`;
         return;
     }
@@ -208,7 +208,7 @@ function renderSavingsGoals() {
                     
                     <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/30 to-black/40"></div>
                     
-                    <button onclick="removeSavingsGoal(${b.id})" class="absolute top-3 right-3 bg-slate-900/80 hover:bg-rose-600 text-slate-300 hover:text-white p-2 rounded-xl text-xs backdrop-blur transition shadow">
+                    <button onclick="removeSavingsGoal(${b.id})" data-i18n-title="goalDelete" title="Eliminar objetivo" class="absolute top-3 right-3 bg-slate-900/80 hover:bg-rose-600 text-slate-300 hover:text-white p-2 rounded-xl text-xs backdrop-blur transition shadow">
                         <i class="fa-solid fa-trash"></i>
                     </button>
 
@@ -220,7 +220,7 @@ function renderSavingsGoals() {
                 <div class="p-4 space-y-4">
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">AHORRADO / META</p>
+                            <p class="text-[10px] uppercase font-bold text-slate-400 tracking-wider" data-i18n="savedVsGoal">AHORRADO / META</p>
                             <p class="text-lg sm:text-xl font-black text-amber-400">
                                 ${currencySymbol}${currentTotal.toFixed(2)} 
                                 <span class="text-xs text-slate-400 font-normal">/ ${currencySymbol}${target.toFixed(2)}</span>
@@ -259,10 +259,10 @@ function renderSavingsGoals() {
                                 </div>
                             `).join('')}
                         </div>
-                    ` : '<p class="text-[11px] text-slate-500 text-center italic py-1">Sin aportes registrados aún</p>'}
+                    ` : '<p class="text-[11px] text-slate-500 text-center italic py-1" data-i18n="noSavingsContributions">Sin aportes registrados aún</p>'}
 
                     <button onclick="openSavingsModal(${b.id})" class="w-full bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/30 font-semibold py-2.5 rounded-xl text-xs sm:text-sm transition flex items-center justify-center gap-2 active:scale-[0.98]">
-                        <i class="fa-solid fa-circle-plus text-amber-400"></i> Agregar Aporte / Retiro
+                        <i class="fa-solid fa-circle-plus text-amber-400"></i> <span data-i18n="savingsAddOrWithdraw">Agregar Aporte / Retiro</span>
                     </button>
 
                 </div>
@@ -337,3 +337,7 @@ async function removeSavingsHistoryItem(boxId, historyId) {
     box.history.splice(itemIndex, 1);
     await saveFirebaseData();
 }
+
+document.getElementById('backBtn')?.addEventListener('click', function() {
+    window.history.back();
+});

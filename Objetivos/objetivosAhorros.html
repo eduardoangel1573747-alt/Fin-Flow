@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fin Flow FPR - Objetivos de Ahorro</title>
+    <title data-i18n="pageTitleSavings">Fin Flow FPR - Objetivos de Ahorro</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -42,7 +42,7 @@
             
             <div class="flex items-center space-x-2">
                 <i class="fa-solid fa-bullseye text-amber-400 text-lg sm:text-2xl"></i>
-                <h1 class="text-sm sm:text-xl font-bold tracking-wide text-white whitespace-nowrap">
+                <h1 class="text-sm sm:text-xl font-bold tracking-wide text-white whitespace-nowrap" data-i18n="savingsTitle">
                     Objetivos de Ahorro 
                 </h1>
             </div>
@@ -53,7 +53,7 @@
                 <i class="fa-solid fa-user text-emerald-400"></i>
                 <span id="userEmailDisplay" class="hidden sm:inline">Cargando...</span>
             </div>
-            <button onclick="logoutUser()" class="bg-slate-700/50 hover:bg-rose-600/80 hover:text-white text-slate-300 p-2 rounded-xl transition border border-slate-600/50 flex items-center justify-center" title="Cerrar Sesión">
+            <button onclick="logoutUser()" class="bg-slate-700/50 hover:bg-rose-600/80 hover:text-white text-slate-300 p-2 rounded-xl transition border border-slate-600/50 flex items-center justify-center" data-i18n-title="logout" title="Cerrar Sesión">
                 <i class="fa-solid fa-right-from-bracket text-base"></i>
             </button>
         </div>
@@ -65,7 +65,7 @@
         <div class="flex items-center justify-between p-4 border-b border-slate-700 bg-slate-800/90 shrink-0">
             <div class="flex items-center gap-2.5">
                 <i class="fa-solid fa-wallet text-emerald-400 text-xl"></i>
-                <span class="font-bold text-lg text-white">Módulos</span>
+                <span class="font-bold text-lg text-white" data-i18n="modules">Módulos</span>
             </div>
             <button onclick="toggleSidebar()" aria-label="Cerrar menú" class="text-slate-400 hover:text-white p-2 rounded-lg hover:bg-slate-700 transition min-w-[40px] min-h-[40px]">
                 <i class="fa-solid fa-xmark text-xl"></i>
@@ -75,7 +75,7 @@
         <nav class="p-3 sm:p-4 space-y-1 overflow-y-auto flex-1">
             <a href="../index.html  " onclick="toggleSidebar()" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-white bg-slate-700/90 font-semibold">
                 <i class="fa-solid fa-house text-emerald-400"></i>
-                <span class="text-sm">Dashboard Principal</span>
+                <span class="text-sm" data-i18n="dashboardMain">Dashboard Principal</span>
             </a>
             
              <div class="pt-3 pb-1">
@@ -86,27 +86,28 @@
 
             <a href="../CuentasCarteras/CuentasCarteras.html" onclick="toggleSidebar()" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-slate-700/70 transition">
                 <i class="fa-solid fa-wallet text-purple-400"></i>
-                <span class="text-sm font-medium">Cuentas Carteras</span>
+                <span class="text-sm font-medium" data-i18n="walletsTitle">Cuentas Carteras</span>
             </a>
             
             <a href="../GastosDiarios/GastosDiarios.html" onclick="toggleSidebar()" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-slate-700/70 transition">
                 <i class="fa-solid fa-receipt text-blue-400 text-base sm:text-sm"></i>
-                <span class="text-sm font-medium">Gastos Diarios</span>
+                <span class="text-sm font-medium" data-i18n="dailyExpensesTitle">Gastos Diarios</span>
             </a>
 
             
             <a href="objetivosAhorros.html" onclick="toggleSidebar()" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-white bg-slate-700/90 font-semibold">
                 <i class="fa-solid fa-bullseye text-amber-400"></i>
-                <span class="text-sm">Objetivos de Ahorro</span>
+                <span class="text-sm" data-i18n="savingsTitle">Objetivos de Ahorro</span>
             </a>
 
             
             <div class="pt-3 pb-1">
-                    <p class="px-3 text-[10px] uppercase font-bold tracking-wider text-slate-500">Ajustes</p>
+                    <p class="px-3 text-[10px] uppercase font-bold tracking-wider text-slate-500" data-i18n="settingsTitle">Ajustes</p>
             </div>
-            <button onclick="openSettingsModal(); toggleSidebar();" class="w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-slate-700/70 transition group text-left">
-                    <i class="fa-solid fa-gear text-slate-400 group-hover:rotate-45 transition-transform"></i>
-                    <span class="text-sm font-medium">Configuración de App</span>
+
+            <button onclick="window.location.href='../pages/Ajustes.html'"  class="w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-slate-700/70 transition group text-left">
+                <i class="fa-solid fa-gear text-slate-400 group-hover:rotate-45 transition-transform"></i>
+                <span class="text-sm font-medium" data-i18n="appSettings">Configuración de App</span>
             </button>
 
         </nav>
@@ -114,10 +115,10 @@
         <div class="p-3.5 sm:p-4 border-t border-slate-700 bg-slate-800/90">
             <div class="flex items-center justify-between text-xs text-slate-400">
                 <span class="font-medium">
-                        Versión App
+                        <span data-i18n="appVersion">Versión App</span>
                 </span>
                 <span class="font-semibold text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/20">
-                        v5.0
+                        v6.0
                 </span>
             </div>
         </div>
@@ -135,37 +136,37 @@
                         <i class="fa-solid fa-bullseye text-lg"></i>
                     </div>
                     <div>
-                        <h2 class="text-base sm:text-lg font-bold text-white leading-tight">
+                        <h2 class="text-base sm:text-lg font-bold text-white leading-tight" data-i18n="savingsTitle">
                             Objetivos de Ahorro
                         </h2>
-                        <p class="text-xs text-slate-400">Sincronizado con Firebase Firestore</p>
+                        <p class="text-xs text-slate-400" data-i18n="savingsSync">Sincronizado con Firebase Firestore</p>
                     </div>
                 </div>
                 <span class="text-xs font-semibold text-amber-300 bg-amber-500/10 border border-amber-500/20 px-3 py-1 rounded-full hidden sm:inline-block">
-                    Metas Financieras
+                    <span data-i18n="savingsBadge">Metas Financieras</span>
                 </span>
             </div>
 
             <!-- Formulario -->
             <form id="savingsGoalForm" onsubmit="createNewSavingsGoal(event)" class="grid grid-cols-1 sm:grid-cols-12 gap-3.5 bg-slate-900/50 p-3.5 rounded-xl border border-slate-700/50">
                 <div class="sm:col-span-4">
-                    <label class="block text-[11px] uppercase tracking-wider font-bold text-slate-400 mb-1.5">Nombre del Objetivo</label>
+                    <label class="block text-[11px] uppercase tracking-wider font-bold text-slate-400 mb-1.5" data-i18n="goalNameLabel">Nombre del Objetivo</label>
                     <input type="text" id="goalTitle" placeholder="Ej. KTM HARD ENDURO" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500 transition">
                 </div>
 
                 <div class="sm:col-span-3">
-                    <label class="block text-[11px] uppercase tracking-wider font-bold text-slate-400 mb-1.5">Monto Meta ($)</label>
+                    <label class="block text-[11px] uppercase tracking-wider font-bold text-slate-400 mb-1.5" data-i18n="goalTargetLabel">Monto Meta ($)</label>
                     <input type="number" id="goalTargetAmount" placeholder="70000.00" step="0.01" min="1" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm font-semibold text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500 transition">
                 </div>
 
                 <div class="sm:col-span-3">
-                    <label class="block text-[11px] uppercase tracking-wider font-bold text-slate-400 mb-1.5">Foto de la Meta</label>
+                    <label class="block text-[11px] uppercase tracking-wider font-bold text-slate-400 mb-1.5" data-i18n="goalPhotoLabel">Foto de la Meta</label>
                     <input type="file" id="goalImageInput" accept="image/*" class="w-full text-xs text-slate-400 file:mr-2 file:py-2 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-slate-700 file:text-amber-400 hover:file:bg-slate-600 cursor-pointer">
                 </div>
 
                 <div class="sm:col-span-2 flex items-end">
                     <button type="submit" id="submitGoalBtn" class="w-full bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 active:scale-[0.98] text-slate-950 font-bold py-2.5 px-3 rounded-xl text-xs sm:text-sm transition-all duration-200 flex items-center justify-center gap-1.5 shadow-lg shadow-amber-500/20 min-h-[42px]">
-                        <i class="fa-solid fa-plus-circle text-base"></i> Crear Meta
+                        <i class="fa-solid fa-plus-circle text-base"></i> <span data-i18n="goalCreateBtn">Crear Meta</span>
                     </button>
                 </div>
             </form>
@@ -173,7 +174,7 @@
             <!-- Lista Dinámica de Metas -->
             <div class="pt-2">
                 <h3 class="text-xs uppercase tracking-wider font-bold text-slate-400 mb-3 flex items-center gap-2">
-                    <i class="fa-solid fa-trophy text-amber-400"></i> Mis Metas Activas
+                    <i class="fa-solid fa-trophy text-amber-400"></i> <span data-i18n="activeGoals">Mis Metas Activas</span>
                 </h3>
                 
                 <div id="savingsGoalsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-5 max-h-[600px] overflow-y-auto pr-1 custom-scroll">
@@ -190,7 +191,7 @@
         <div class="bg-slate-800 rounded-2xl max-w-md w-full p-5 border border-slate-700 shadow-2xl space-y-4 my-auto">
             <div class="flex justify-between items-center border-b border-slate-700/60 pb-3">
                 <h3 class="text-base sm:text-lg font-bold text-amber-400 flex items-center gap-2">
-                    <i class="fa-solid fa-coins"></i> Registrar Movimiento
+                    <i class="fa-solid fa-coins"></i> <span data-i18n="savingsMovementTitle">Registrar Movimiento</span>
                 </h3>
                 <button onclick="closeSavingsModal()" class="text-slate-400 hover:text-white p-1 rounded-lg transition">
                     <i class="fa-solid fa-xmark text-xl"></i>
@@ -200,34 +201,34 @@
             <form id="savingsMovementForm" onsubmit="processSavingsMovement(event)" class="space-y-3">
                 <input type="hidden" id="modalBoxId">
                 <div>
-                    <label class="text-[10px] text-slate-400 uppercase font-bold mb-1 block">Tipo de Operación</label>
+                    <label class="text-[10px] text-slate-400 uppercase font-bold mb-1 block" data-i18n="operationType">Tipo de Operación</label>
                     <select id="modalActionType" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-sm text-white focus:ring-2 focus:ring-amber-500 focus:outline-none min-h-[42px]">
-                        <option value="add">Abonar a la Meta (+)</option>
-                        <option value="subtract">Retirar Fondos (-)</option>
+                        <option value="add" data-i18n="savingsAdd">Abonar a la Meta (+)</option>
+                        <option value="subtract" data-i18n="savingsWithdraw">Retirar Fondos (-)</option>
                     </select>
                 </div>
                 <div>
-                    <label class="text-[10px] text-slate-400 uppercase font-bold mb-1 block">Origen / Destino del Dinero</label>
+                    <label class="text-[10px] text-slate-400 uppercase font-bold mb-1 block" data-i18n="moneySource">Origen / Destino del Dinero</label>
                     <select id="modalSource" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-sm text-white focus:ring-2 focus:ring-amber-500 focus:outline-none min-h-[42px]">
-                        <option value="Efectivo">💵 Efectivo</option>
-                        <option value="Cuenta/Banco">🏦 Cuenta de Banco / Tarjeta</option>
+                        <option value="Efectivo" data-i18n="cash">💵 Efectivo</option>
+                        <option value="Cuenta/Banco" data-i18n="bankAccount">🏦 Cuenta de Banco / Tarjeta</option>
                     </select>
                 </div>
                 <div>
-                    <label class="text-[10px] text-slate-400 uppercase font-bold mb-1 block">Monto ($)</label>
+                    <label class="text-[10px] text-slate-400 uppercase font-bold mb-1 block" data-i18n="amount">Monto ($)</label>
                     <input type="number" id="modalAmount" step="0.01" min="0.01" required placeholder="0.00" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-sm text-white focus:ring-2 focus:ring-amber-500 focus:outline-none min-h-[42px]">
                 </div>
                 <div>
-                    <label class="text-[10px] text-slate-400 uppercase font-bold mb-1 block">Fecha</label>
+                    <label class="text-[10px] text-slate-400 uppercase font-bold mb-1 block" data-i18n="thDate">Fecha</label>
                     <input type="date" id="modalDate" required class="w-full bg-slate-900 border border-slate-700 rounded-xl p-1 text-sm text-white focus:ring-2 focus:ring-amber-500 focus:outline-none min-h-[42px]">
                 </div>
                 <div>
-                    <label class="text-[10px] text-slate-400 uppercase font-bold mb-1 block">Nota / Descripción</label>
-                    <input type="text" id="modalReason" required placeholder="Ej. Ahorro quincenal" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-sm text-white focus:ring-2 focus:ring-amber-500 focus:outline-none min-h-[42px]">
+                    <label class="text-[10px] text-slate-400 uppercase font-bold mb-1 block" data-i18n="goalNoteLabel">Nota / Descripción</label>
+                    <input type="text" id="modalReason" required data-i18n-placeholder="goalNotePlaceholder" placeholder="Ej. Ahorro quincenal" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-sm text-white focus:ring-2 focus:ring-amber-500 focus:outline-none min-h-[42px]">
                 </div>
                 <div class="pt-2">
                     <button type="submit" class="w-full bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 text-slate-950 font-bold py-2.5 rounded-xl text-sm transition shadow-lg shadow-amber-500/20">
-                        Guardar Movimiento
+                        <span data-i18n="saveBtn">Guardar Movimiento</span>
                     </button>
                 </div>
             </form>

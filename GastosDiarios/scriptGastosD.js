@@ -1344,3 +1344,7 @@ window.addEventListener('scroll', function() {
         btn.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
     }
 });
+
+document.getElementById('backBtn').addEventListener('click', function() {
+    window.history.back();
+});

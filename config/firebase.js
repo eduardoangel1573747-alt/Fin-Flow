@@ -8,6 +8,7 @@ import {
     signOut
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import {
+    arrayUnion,
     collection,
     doc,
     getDoc,
@@ -33,6 +34,7 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 const dbMethods = {
+    arrayUnion,
     collection,
     createUserWithEmailAndPassword,
     doc,

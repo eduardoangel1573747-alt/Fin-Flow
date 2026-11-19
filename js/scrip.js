@@ -15,6 +15,15 @@ let state = {
     globalHistory: [] 
 };
 
+window.addEventListener('finances-settings-changed', event => {
+    if (event.detail?.language) currentLang = event.detail.language;
+    if (event.detail?.currency) currencySymbol = event.detail.currency;
+    if (document.getElementById('netBalance')) render();
+    if (typeof renderHistoryPage === 'function' && document.getElementById('historyTableBody')) {
+        renderHistoryPage();
+    }
+});
+
 // --- AUTENTICACIÓN Y CARGA DE DATOS ---
 document.addEventListener('DOMContentLoaded', () => {
     window.dbMethods.onAuthStateChanged(window.auth, async (user) => {
@@ -87,38 +96,6 @@ function logout() {
     });
 }
 
-// --- DICCIONARIOS Y TRADUCCIONES ---
-const i18n = {
-    es: { 
-        appTitle: "Fin Flow FPR", closeMonth: "Cierre de Mes", closeShort: "Cierre", netBalance: "Balance Disponible", 
-        totalIncome: "Ingresos Totales", totalSpent: "Gastos Acumulados", totalSavings: "Total Ahorrado", 
-        totalReceivables: "Te Deben", totalDebts: "Deudas", regTransactionTitle: "Nueva Transacción", 
-        saveBtn: "Guardar", txHistory: "Historial", budgetTitle: "Presupuesto", createCatBtn: "Crear Categoría", 
-        directIncomeTitle: "Ingresos Directos", addBtn: "Añadir", receivablesTitle: "Cuentas por Cobrar", 
-        regLoanBtn: "Registrar Préstamo", debtsTitle: "Mis Deudas", regDebtBtn: "Registrar Deuda", 
-        savingsTitle: "Cajas de Ahorro", createBoxBtn: "Crear Caja", settingsTitle: "Configuración", 
-        optionExpense: "Gasto (-)", optionIncome: "Ingreso (+)", thDate: "Fecha", thDesc: "Descripción", 
-        thAmount: "Monto", thAction: "Acción", ftRec: "Recursos Educativos", ftTools: "Herramientas", 
-        ftSupport: "Soporte", ftLink1: "Curso de Educación Financiera", ftLink2: "Guía de Inversiones e Inflación", 
-        ftLink4: "Calculadora Interés Compuesto", ftLink7: "Centro de Asistencia", rights: "Todos los derechos reservados.", 
-        secureData: "100% Privado y Seguro. Respaldado en la nube." 
-    },
-    en: { 
-        appTitle: "Fin Flow FPR", closeMonth: "Month Close", closeShort: "Close", netBalance: "Available Balance", 
-        totalIncome: "Total Income", totalSpent: "Total Spent", totalSavings: "Total Savings", 
-        totalReceivables: "Owed to You", totalDebts: "My Debts", regTransactionTitle: "New Transaction", 
-        saveBtn: "Save", txHistory: "History", budgetTitle: "Budget", createCatBtn: "Create Category", 
-        directIncomeTitle: "Direct Income", addBtn: "Add", receivablesTitle: "Accounts Receivable", 
-        regLoanBtn: "Log Loan", debtsTitle: "Pending Debts", regDebtBtn: "Log Debt", savingsTitle: "Savings Boxes", 
-        createBoxBtn: "Create Box", settingsTitle: "Settings", optionExpense: "Expense (-)", 
-        optionIncome: "Income (+)", thDate: "Date", thDesc: "Description", 
-        thAmount: "Amount", thAction: "Action", ftRec: "Educational Resources", ftTools: "Tools", 
-        ftSupport: "Support", ftLink1: "Financial Education Course", ftLink2: "Investment & Inflation Guide", 
-        ftLink4: "Compound Interest Calculator", ftLink7: "Help Center", rights: "All rights reserved.", 
-        secureData: "100% Private and Secure. Safely backed up in the cloud." 
-    }
-};
-
 function logGlobalHistory(type, desc, amount, date, category = 'General') {
     state.globalHistory.unshift({
         id: Date.now(),
@@ -131,25 +108,34 @@ function logGlobalHistory(type, desc, amount, date, category = 'General') {
 }
 
 function changeLanguage(lang) {
+    if (!['es', 'en', 'fr'].includes(lang)) return;
     currentLang = lang;
     localStorage.setItem('finances_lang', lang);
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        if (i18n[lang] && i18n[lang][key]) el.innerText = i18n[lang][key];
+    window.applyFinancesLanguage(lang).catch(error => {
+        console.error('Error aplicando el idioma seleccionado:', error);
     });
-    const langSelect = document.getElementById('langSelect');
+    const langSelect = document.getElementById('settingLanguage') || document.getElementById('langSelect');
     if (langSelect) langSelect.value = lang;
-    if (document.getElementById('netBalance')) render();
-    if (typeof renderHistoryPage === 'function' && document.getElementById('historyTableBody')) renderHistoryPage();
+    window.dispatchEvent(new CustomEvent('finances-settings-changed', {
+        detail: {
+            language: lang,
+            currency: localStorage.getItem('finances_currency') || '$'
+        }
+    }));
 }
 
 function changeCurrency(sym) {
+    if (!['$', '€', 'Q', '£'].includes(sym)) return;
     currencySymbol = sym;
     localStorage.setItem('finances_currency', sym);
-    const currencySelect = document.getElementById('currencySelect');
+    const currencySelect = document.getElementById('settingCurrency') || document.getElementById('currencySelect');
     if (currencySelect) currencySelect.value = sym;
-    if (document.getElementById('netBalance')) render();
-    if (typeof renderHistoryPage === 'function' && document.getElementById('historyTableBody')) renderHistoryPage();
+    window.dispatchEvent(new CustomEvent('finances-settings-changed', {
+        detail: {
+            language: localStorage.getItem('finances_lang') || 'es',
+            currency: sym
+        }
+    }));
 }
 
 // Funcion nueva de scroll to top
@@ -200,10 +186,6 @@ document.addEventListener('keydown', (event) => {
         toggleSidebar();
     }
 });
-
-// --- MODALES ---
-function openSettingsModal() { document.getElementById('settingsModal')?.classList.remove('hidden'); }
-function closeSettingsModal() { document.getElementById('settingsModal')?.classList.add('hidden'); }
 
 function openCloseMonthModal() {
     const totalTransactionsSpent = state.transactions.filter(t => t.type === 'expense').reduce((a, b) => a + b.amount, 0);
@@ -618,3 +600,7 @@ function renderHistoryPage() {
             </tr>`;
     }).join('');
 }
+
+function backToPreviusPage() {
+    window.history.back();
+}   

@@ -1,10 +1,10 @@
-<!-- V5.2 All + Firebase -->
+<!-- V5.3 All + Firebase -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Fin Flow FPR - Dashboard</title>
+    <title data-i18n="pageTitleDashboard">Fin Flow FPR - Dashboard</title>
 
     <link rel="icon" type="image/png" href="img/grafico-de-barras.png">
 
@@ -103,7 +103,7 @@
                     <p class="px-3 text-[10px] uppercase font-bold tracking-wider text-slate-500">Ajustes</p>
             </div>
             
-            <button onclick="openSettingsModal(); toggleSidebar();" class="w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-slate-700/70 transition group text-left">
+            <button onclick="window.location.href='pages/Ajustes.html'"  class="w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-slate-700/70 transition group text-left">
                     <i class="fa-solid fa-gear text-slate-400 group-hover:rotate-45 transition-transform"></i>
                     <span class="text-sm font-medium">Configuración de App</span>
             </button>
@@ -115,7 +115,7 @@
                         Versión App
                 </span>
                 <span class="font-semibold text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/20">
-                        v5.0
+                        v6.0
                 </span>
             </div>
         </div>
@@ -428,7 +428,7 @@
                                 </table>
                             </div>
                         </div>
-                    </section>
+                    </section>         
 
                     <!-- Cuentas por Cobrar - Rediseño Premium -->
                     <section class="bg-gradient-to-b from-slate-800 to-slate-800/80 backdrop-blur-xl p-5 sm:p-6 rounded-2xl border border-slate-700/70 shadow-2xl space-y-6 lg:col-span-2">
@@ -673,34 +673,6 @@
     </div>
 
     <!-- MODALES OPTIMIZADOS PARA CUALQUIER PANTALLA MÓVIL -->
-    <!-- MODAL CONFIGURACIÓN -->
-    <div id="settingsModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-3.5 z-50 overflow-y-auto">
-        <div class="bg-slate-800 rounded-2xl max-w-md w-full p-5 border border-slate-700 shadow-2xl space-y-4 my-auto">
-            <div class="flex justify-between items-center">
-                <h3 class="text-base sm:text-lg font-bold text-emerald-400 flex items-center gap-2"><i class="fa-solid fa-gear"></i> <span data-i18n="settingsTitle">Configuración</span></h3>
-                <button onclick="closeSettingsModal()" class="text-slate-400 hover:text-white p-1"><i class="fa-solid fa-xmark text-xl"></i></button>
-            </div>
-            <div class="space-y-4">
-                <div>
-                    <label class="text-xs text-slate-300 font-semibold mb-1.5 block">Idioma</label>
-                    <select id="settingLanguage" onchange="changeLanguage(this.value)" class="w-full bg-slate-700 border border-slate-600 rounded-lg p-2.5 text-sm focus:outline-none focus:border-emerald-400 text-slate-100 min-h-[42px]">
-                        <option value="es">Español 🇲🇽</option>
-                        <option value="en">English 🇺🇸</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="text-xs text-slate-300 font-semibold mb-1.5 block">Moneda</label>
-                    <select id="settingCurrency" onchange="changeCurrency(this.value)" class="w-full bg-slate-700 border border-slate-600 rounded-lg p-2.5 text-sm focus:outline-none focus:border-emerald-400 text-slate-100 min-h-[42px]">
-                        <option value="$">Dólar ($)</option>
-                        <option value="€">Euro (€)</option>
-                        <option value="Q">Quetzal (Q)</option>
-                    </select>
-                </div>
-            </div>
-            <button onclick="closeSettingsModal()" class="w-full bg-emerald-600 active:bg-emerald-700 text-white font-medium py-2.5 rounded-lg text-sm transition min-h-[42px]">Cerrar</button>
-        </div>
-    </div>
-
     <!-- MODAL AHORROS -->
     <div id="savingsMovementModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-3.5 z-50 overflow-y-auto">
         <div class="bg-slate-800 rounded-2xl max-w-md w-full p-5 border border-slate-700 shadow-2xl space-y-4 my-auto">
@@ -795,6 +767,7 @@
     <script type="module" src="config/firebase.js"></script>
 
      <!-- Enlace al archivo de JavaScript externo -->
+    <script src="js/settings-global.js"></script>
     <script src="js/scrip.js"></script>
 
 </body>
