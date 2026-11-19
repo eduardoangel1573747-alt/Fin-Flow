@@ -299,45 +299,53 @@
 
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-8">
                     <!-- Presupuesto por Categorías - Rediseño Premium -->
-                    <section class="bg-gradient-to-b from-slate-800 to-slate-800/80 backdrop-blur-xl p-5 sm:p-6 rounded-2xl border border-slate-700/70 shadow-2xl space-y-6">
-                        
+                    <section class="relative overflow-hidden bg-slate-900/90 backdrop-blur-2xl p-5 sm:p-6 rounded-2xl border border-slate-800 shadow-[0_20px_50px_rgba(168,_85,_247,_0.08)] space-y-6">
+    
+                        <!-- Detalle luminoso superior -->
+                        <div class="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-purple-500/50 to-transparent"></div>
+
                         <!-- Header principal con badge decorativo -->
-                        <div class="flex items-center justify-between">
+                        <div class="flex items-center justify-between border-b border-slate-800/80 pb-4">
                             <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 shadow-inner">
+                                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500/20 to-indigo-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400 shadow-inner">
                                     <i class="fa-solid fa-chart-pie text-lg"></i>
                                 </div>
                                 <div>
-                                    <h2 class="text-base sm:text-lg font-bold text-white leading-tight" data-i18n="budgetTitle">
+                                    <h2 class="text-base sm:text-lg font-bold text-white leading-tight tracking-tight" data-i18n="budgetTitle">
                                         Presupuesto por Categorías
                                     </h2>
                                     <p class="text-xs text-slate-400">Establece límites y controla tus gastos asignados</p>
                                 </div>
                             </div>
-                            <span class="text-xs font-semibold text-purple-300 bg-purple-500/10 border border-purple-500/20 px-3 py-1 rounded-full hidden sm:inline-block">
+                            <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-purple-300 bg-purple-500/10 border border-purple-500/20 px-3 py-1 rounded-full hidden sm:inline-flex">
+                                <span class="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse"></span>
                                 Límites y Control
                             </span>
                         </div>
 
-                        <!-- Formulario para crear categoría -->
-                        <form id="budgetForm" onsubmit="addCategory(event)" class="grid grid-cols-1 sm:grid-cols-12 gap-3.5 bg-slate-900/40 p-3.5 rounded-xl border border-slate-700/50">
+                        <!-- Formulario para crear categoría (Mismas columnas y tamaños originales) -->
+                        <form id="budgetForm" onsubmit="addCategory(event)" class="grid grid-cols-1 sm:grid-cols-12 gap-3.5 bg-slate-950/50 p-3.5 rounded-xl border border-slate-800/80">
                             
-                            <!-- Nombre de la Categoría -->
+                            <!-- Nombre de la Categoría (sm:col-span-5) -->
                             <div class="sm:col-span-5">
                                 <label class="block text-[11px] uppercase tracking-wider font-bold text-slate-400 mb-1.5">Nombre Categoría</label>
-                                <input type="text" id="catName" placeholder="Ej. Comida, Alquiler, Salidas" required class="w-full bg-slate-900/80 border border-slate-700/80 rounded-xl px-3.5 py-2.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition">
+                                <input type="text" id="catName" placeholder="Ej. Comida, Alquiler, Salidas" required 
+                                    class="w-full bg-slate-900/90 border border-slate-700/70 rounded-xl px-3.5 py-2.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500 transition-all">
                             </div>
 
-                            <!-- Límite de Presupuesto -->
+                            <!-- Límite de Presupuesto (sm:col-span-4) -->
                             <div class="sm:col-span-4">
                                 <label class="block text-[11px] uppercase tracking-wider font-bold text-slate-400 mb-1.5">Límite Permitido</label>
-                                <input type="number" id="catLimit" placeholder="0.00" step="1" min="0" required class="w-full bg-slate-900/80 border border-slate-700/80 rounded-xl px-3.5 py-2.5 text-sm font-semibold text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition">
+                                <input type="number" id="catLimit" placeholder="0.00" step="1" min="0" required 
+                                    class="w-full bg-slate-900/90 border border-slate-700/70 rounded-xl px-3.5 py-2.5 text-sm font-semibold text-purple-300 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500 transition-all">
                             </div>
 
-                            <!-- Botón Crear -->
+                            <!-- Botón Crear (sm:col-span-3) -->
                             <div class="sm:col-span-3 flex items-end">
-                                <button type="submit" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 active:scale-[0.98] text-white font-bold py-2.5 px-4 rounded-xl text-sm transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-purple-600/20 cursor-pointer min-h-[42px]" data-i18n="createCatBtn">
-                                    <i class="fa-solid fa-plus-circle text-base"></i> Crear
+                                <button type="submit" 
+                                    class="w-full h-[42px] bg-gradient-to-r from-purple-600 to-indigo-500 hover:from-purple-500 hover:to-indigo-400 active:scale-[0.98] text-white font-semibold px-3 rounded-xl text-xs transition-all duration-200 flex items-center justify-center gap-1.5 shadow-lg shadow-purple-600/25 hover:shadow-purple-500/40 cursor-pointer whitespace-nowrap">
+                                    <i class="fa-solid fa-plus-circle text-sm shrink-0"></i>
+                                    <span data-i18n="createCatBtn">Crear</span>
                                 </button>
                             </div>
                         </form>
