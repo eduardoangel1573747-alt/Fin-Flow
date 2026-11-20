@@ -135,66 +135,122 @@
             <main class="max-w-4xl mx-auto px-3 sm:px-4 py-4 sm:py-6 space-y-6">
                 
                 <!-- CARD Novedad: Formulario para Agregar Nuevo Gasto a Firestore -->
-                <section class="bg-slate-800 rounded-2xl border border-slate-700 shadow-xl p-5 sm:p-6 space-y-4">
-                    <h3 class="text-sm font-bold text-slate-200 uppercase tracking-wider flex items-center gap-2">
-                        <i class="fa-solid fa-circle-plus text-emerald-400"></i> Registrar Nuevo Gasto Diario
-                    </h3>
-                    <form id="addExpenseForm" onsubmit="saveDailyExpenseToFirestore(event)" class="grid grid-cols-1 sm:grid-cols-4 gap-3">
-                        <input type="text" id="expenseDesc" placeholder="Descripción (ej. Almuerzo)" required class="bg-slate-900 border border-slate-700 text-white rounded-xl p-2.5 text-xs focus:ring-2 focus:ring-purple-500 outline-none">
-                        <input type="number" step="0.01" id="expenseAmount" placeholder="Monto" required class="bg-slate-900 border border-slate-700 text-white rounded-xl p-2.5 text-xs focus:ring-2 focus:ring-purple-500 outline-none">
-                        <input type="date" id="expenseDate" required class="bg-slate-900 border border-slate-700 text-white rounded-xl p-1 text-xs focus:ring-2 focus:ring-purple-500 outline-none">
-                        <button type="submit" id="btnSaveExpense" class="bg-purple-600 hover:bg-purple-500 active:scale-95 text-white font-bold rounded-xl p-2.5 text-xs transition flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-floppy-disk"></i> Guardar
+                <section class="relative overflow-hidden bg-slate-900/90 backdrop-blur-2xl rounded-2xl border border-slate-800/90 shadow-[0_20px_50px_rgba(168,_85,_247,_0.08)] p-5 sm:p-6 space-y-4">
+    
+                    <!-- Detalle luminoso superior + brillo ambiental -->
+                    <div class="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-purple-400/60 to-transparent"></div>
+                    <div class="absolute -right-8 -top-8 w-28 h-28 rounded-full bg-purple-500/10 blur-2xl pointer-events-none"></div>
+
+                    <!-- Encabezado de la sección -->
+                    <div class="flex items-center justify-between border-b border-slate-800/80 pb-3.5 relative z-10">
+                        <h3 class="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2.5">
+                            <span class="w-8 h-8 rounded-xl bg-gradient-to-br from-purple-500/20 to-indigo-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400 shadow-inner shrink-0">
+                                <i class="fa-solid fa-circle-plus text-sm"></i>
+                            </span>
+                            <span>Registrar Nuevo Gasto Diario</span>
+                        </h3>
+                        <span class="hidden sm:inline-flex items-center gap-1.5 text-[11px] font-semibold text-purple-300 bg-purple-500/10 border border-purple-500/20 px-2.5 py-0.5 rounded-full">
+                            <span class="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse"></span>
+                            Registro Rápido
+                        </span>
+                    </div>
+
+                    <!-- Formulario (Mismas 4 columnas y tamaños originales) -->
+                    <form id="addExpenseForm" onsubmit="saveDailyExpenseToFirestore(event)" class="grid grid-cols-1 sm:grid-cols-4 gap-3 bg-slate-950/50 p-3.5 rounded-xl border border-slate-800/80 relative z-10">
+                        
+                        <!-- Descripción -->
+                        <input type="text" id="expenseDesc" placeholder="Descripción (ej. Almuerzo)" required 
+                            class="w-full bg-slate-900/90 border border-slate-700/70 text-slate-100 placeholder-slate-500 rounded-xl px-3.5 py-2.5 text-xs focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500 focus:outline-none transition-all min-h-[40px]">
+
+                        <!-- Monto -->
+                        <input type="number" step="0.01" id="expenseAmount" placeholder="Monto" required 
+                            class="w-full bg-slate-900/90 border border-slate-700/70 text-purple-300 font-semibold tabular-nums placeholder-slate-500 rounded-xl px-3.5 py-2.5 text-xs focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500 focus:outline-none transition-all min-h-[40px]">
+
+                        <!-- Fecha -->
+                        <input type="date" id="expenseDate" required 
+                            class="w-full bg-slate-900/90 border border-slate-700/70 text-slate-100 rounded-xl px-2.5 py-1 text-xs focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500 focus:outline-none transition-all scheme-dark min-h-[40px]">
+
+                        <!-- Botón Guardar -->
+                        <button type="submit" id="btnSaveExpense" 
+                            class="w-full h-[40px] bg-gradient-to-r from-purple-600 to-indigo-500 hover:from-purple-500 hover:to-indigo-400 active:scale-[0.98] text-white font-bold rounded-xl px-3.5 text-xs transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-purple-500/25 hover:shadow-purple-400/40 cursor-pointer whitespace-nowrap">
+                            <i class="fa-solid fa-floppy-disk text-xs shrink-0"></i>
+                            <span>Guardar</span>
                         </button>
+
                     </form>
                 </section>
 
                 <!-- CARD 1: Gráfico y Resumen Estilo UI -->
-                <section class="bg-slate-800 rounded-2xl border border-slate-700 shadow-xl p-5 sm:p-6 space-y-6">
-                    <div>
-                        <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400">
-                            GASTADO: <span id="dailyDateRangeText" class="text-white">---</span>
-                        </p>
-                        <h2 id="periodTotalSpent" class="text-3xl sm:text-4xl font-black text-white tracking-tight mt-1">
-                            $0.00
-                        </h2>
+               <!-- CARD 1: Resumen y Gráfico de Gastos del Período -->
+                <section class="relative overflow-hidden bg-slate-900/90 backdrop-blur-2xl rounded-2xl border border-slate-800/90 shadow-[0_20px_50px_rgba(168,_85,_247,_0.08)] p-5 sm:p-6 space-y-5">
+                    
+                    <!-- Detalle luminoso superior + brillo ambiental -->
+                    <div class="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-purple-400/60 to-transparent"></div>
+                    <div class="absolute -right-10 -top-10 w-32 h-32 rounded-full bg-purple-500/10 blur-2xl pointer-events-none"></div>
+
+                    <!-- Header de Métrica Principal -->
+                    <div class="flex items-start justify-between gap-4 relative z-10">
+                        <div>
+                            <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+                                <span class="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse"></span>
+                                <span>GASTADO:</span>
+                                <span id="dailyDateRangeText" class="text-purple-300">---</span>
+                            </p>
+                            <h2 id="periodTotalSpent" class="text-3xl sm:text-4xl font-black text-white tracking-tight tabular-nums mt-1.5">
+                                $0.00
+                            </h2>
+                        </div>
+
+                        <span class="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500/20 to-indigo-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400 shadow-inner shrink-0">
+                            <i class="fa-solid fa-chart-column text-base"></i>
+                        </span>
                     </div>
 
                     <!-- Lienzo para Canvas Chart -->
-                    <div class="relative w-full h-44 sm:h-52 bg-slate-900/40 rounded-xl p-2 border border-slate-700/50 flex flex-col justify-end">
+                    <div class="relative w-full h-44 sm:h-52 bg-slate-950/60 rounded-xl p-3 border border-slate-800/80 flex flex-col justify-end shadow-inner z-10">
                         <canvas id="dailyExpenseCanvas" class="w-full h-full"></canvas>
                     </div>
 
                     <!-- Leyenda del Gráfico -->
-                    <div class="flex items-center gap-6 text-xs text-slate-300 font-medium pt-1">
-                        <div class="flex items-center gap-2">
-                            <span class="w-2.5 h-2.5 rounded-full bg-purple-500 shadow-sm shadow-purple-500/50"></span>
-                            <span>Este período</span>
+                    <div class="flex items-center justify-between pt-2 border-t border-slate-800/70 relative z-10">
+                        <div class="flex items-center gap-5 text-xs text-slate-300 font-medium">
+                            <div class="flex items-center gap-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-purple-500 shadow-[0_0_8px_rgba(168,85,247,0.8)]"></span>
+                                <span>Este período</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-slate-400/80"></span>
+                                <span>Media</span>
+                            </div>
                         </div>
-                        <div class="flex items-center gap-2">
-                            <span class="w-2.5 h-2.5 rounded-full bg-slate-400"></span>
-                            <span>Media</span>
-                        </div>
+                        <span class="text-[11px] text-slate-500 hidden sm:inline">Tendencia diaria</span>
                     </div>
                 </section>
 
                 <!-- CARD 2: Calendario Interactivo con Desglose de Gastos -->
-                <section class="bg-slate-800 rounded-2xl border border-slate-700 shadow-xl p-5 sm:p-6 space-y-6">
+                <section class="relative overflow-hidden bg-slate-900/90 backdrop-blur-2xl rounded-2xl border border-slate-800/90 shadow-[0_20px_50px_rgba(168,_85,_247,_0.08)] p-5 sm:p-6 space-y-5">
+                    
+                    <!-- Detalle luminoso superior + brillo ambiental -->
+                    <div class="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-purple-400/60 to-transparent"></div>
+                    <div class="absolute -left-10 -top-10 w-32 h-32 rounded-full bg-indigo-500/10 blur-2xl pointer-events-none"></div>
+
                     <!-- Control Navegación del Período -->
-                    <div class="flex items-center justify-between">
-                        <button onclick="shiftDailyPeriod(-1)" class="p-2 text-slate-400 hover:text-white hover:bg-slate-700 rounded-lg transition active:scale-95">
-                            <i class="fa-solid fa-chevron-left text-lg"></i>
+                    <div class="flex items-center justify-between bg-slate-950/50 p-2 rounded-xl border border-slate-800/80 relative z-10">
+                        <button type="button" onclick="shiftDailyPeriod(-1)" class="w-9 h-9 flex items-center justify-center text-slate-400 hover:text-white bg-slate-900/80 hover:bg-purple-500/20 border border-slate-700/60 hover:border-purple-500/40 rounded-lg transition-all active:scale-95 cursor-pointer">
+                            <i class="fa-solid fa-chevron-left text-sm"></i>
                         </button>
-                        <h3 id="calendarPeriodHeader" class="text-base sm:text-lg font-bold text-white capitalize">
+                        
+                        <h3 id="calendarPeriodHeader" class="text-sm sm:text-base font-bold text-white tracking-tight capitalize flex items-center gap-2">
                             Cargando período...
                         </h3>
-                        <button onclick="shiftDailyPeriod(1)" class="p-2 text-slate-400 hover:text-white hover:bg-slate-700 rounded-lg transition active:scale-95">
-                            <i class="fa-solid fa-chevron-right text-lg"></i>
+                        
+                        <button type="button" onclick="shiftDailyPeriod(1)" class="w-9 h-9 flex items-center justify-center text-slate-400 hover:text-white bg-slate-900/80 hover:bg-purple-500/20 border border-slate-700/60 hover:border-purple-500/40 rounded-lg transition-all active:scale-95 cursor-pointer">
+                            <i class="fa-solid fa-chevron-right text-sm"></i>
                         </button>
                     </div>
 
                     <!-- Grid Días de la semana -->
-                    <div class="grid grid-cols-7 text-center text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                    <div class="grid grid-cols-7 text-center text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-slate-400 pb-1 border-b border-slate-800/70 relative z-10">
                         <div>DOM</div>
                         <div>LUN</div>
                         <div>MAR</div>
@@ -205,18 +261,36 @@
                     </div>
 
                     <!-- Grid interactivo con Montos por Día -->
-                    <div id="dailyGrid" class="grid grid-cols-7 gap-1.5 sm:gap-2">
+                    <div id="dailyGrid" class="grid grid-cols-7 gap-1.5 sm:gap-2 relative z-10">
                         <!-- Generado Dinámicamente por Script -->
                     </div>
                 </section>
 
-                <!-- Detalle del Día Seleccionado -->
-                <section class="bg-slate-800 rounded-2xl border border-slate-700 shadow-xl p-5 sm:p-6 space-y-4">
-                    <h3 id="selectedDayTitle" class="text-sm font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
-                        <i class="fa-solid fa-list-ul text-purple-400"></i> Movimientos del Día
-                    </h3>
-                    <div id="selectedDayList" class="space-y-2 max-h-60 overflow-y-auto custom-scroll pr-1">
-                        <p class="text-xs text-slate-500 italic">Selecciona un día en el calendario para ver el desglose.</p>
+                <!-- CARD 3: Detalle del Día Seleccionado -->
+                <section class="relative overflow-hidden bg-slate-900/90 backdrop-blur-2xl rounded-2xl border border-slate-800/90 shadow-[0_20px_50px_rgba(168,_85,_247,_0.08)] p-5 sm:p-6 space-y-4">
+                    
+                    <!-- Detalle luminoso superior + brillo ambiental -->
+                    <div class="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-purple-400/60 to-transparent"></div>
+                    <div class="absolute -right-8 -top-8 w-28 h-28 rounded-full bg-purple-500/10 blur-2xl pointer-events-none"></div>
+
+                    <!-- Encabezado del Detalle -->
+                    <div class="flex items-center justify-between border-b border-slate-800/80 pb-3.5 relative z-10">
+                        <h3 id="selectedDayTitle" class="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2.5">
+                            <span class="w-8 h-8 rounded-xl bg-gradient-to-br from-purple-500/20 to-indigo-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400 shadow-inner shrink-0">
+                                <i class="fa-solid fa-list-ul text-xs sm:text-sm"></i>
+                            </span>
+                            <span>Movimientos del Día</span>
+                        </h3>
+                        <span class="text-[11px] font-semibold text-purple-300 bg-purple-500/10 border border-purple-500/20 px-2.5 py-0.5 rounded-full hidden sm:inline-block">
+                            Desglose
+                        </span>
+                    </div>
+
+                    <!-- Lista de Movimientos -->
+                    <div id="selectedDayList" class="space-y-2 max-h-60 overflow-y-auto custom-scroll pr-1 relative z-10">
+                        <div class="bg-slate-950/50 border border-slate-800/70 rounded-xl p-4 text-center">
+                            <p class="text-xs text-slate-400 italic">Selecciona un día en el calendario para ver el desglose.</p>
+                        </div>
                     </div>
                 </section>
 
