@@ -1,0 +1,18 @@
+[33m8def412[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mdesarrollo[m[33m)[m Checkout 1.7: Modificacion de texto en 'addBtn' en idiomas eb,fr
+[33mffebdb6[m Checkout 1.6: Mejora Fronted en KPI o Tarjetas de resumen
+[33m4e4bebb[m Checkout 1.5: Mejora Fronted en movimientos, deudas y cajas de ahorro
+[33m3c2425f[m Checkout 1.4: Mejora Fronted en Apartado de Cuentas por Cobrar
+[33m92e8398[m Checkout 1.3: Mejora Fronted en Apartado de Presupuesto por categoria
+[33ma475f49[m Checkout 1.2: Mejora Fronted en Apartado de Ingresos directos
+[33m7ae6df1[m Checkpoint 1.1: Cambio de dialogo en Ajustes.html
+[33me70c831[m Checkpoint 1: Seccion completa de ajustes e idiomas
+[33m14ce947[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m Addition of the section footer and the function scroll to top
+[33m9549aea[m Restructuring of folders and paths
+[33m1acff41[m Fix for history issue
+[33mb73b69f[m repair and visual improvement of the side menu
+[33m38db60f[m Addition of a reset option in 'Presupuesto'
+[33m19e9813[m repair of the side menu 'GuentasCarteras'
+[33m36cc22d[m repair of the side menu
+[33md82b264[m Frontend improvements to the side menu
+[33ma19107b[m Fix Errors and new config for FireBase
+[33mfa8325a[m[33m ([m[1;31morigin/master[m[33m)[m Resolucion de la Navegacion lateral especificamente del modulo de 'GastosDiarios' y agregacion del archivo de configuracion de fire base
