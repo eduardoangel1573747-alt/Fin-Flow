@@ -70,7 +70,10 @@ async function loadUserDataFromFirebase() {
             renderHistoryPage();
         }
     } catch (error) {
-        console.error("Error al cargar datos:", error);
+        window.financesLogger.error('firestore_read_failed', error, {
+            module: 'dashboard',
+            operation: 'getDoc'
+        });
     }
 }
 
@@ -85,7 +88,10 @@ async function saveData() {
                 renderHistoryPage();
             }
         } catch (error) {
-            console.error("Error al guardar datos:", error);
+            window.financesLogger.error('firestore_write_failed', error, {
+                module: 'dashboard',
+                operation: 'setDoc'
+            });
         }
     }
 }
@@ -112,7 +118,10 @@ function changeLanguage(lang) {
     currentLang = lang;
     localStorage.setItem('finances_lang', lang);
     window.applyFinancesLanguage(lang).catch(error => {
-        console.error('Error aplicando el idioma seleccionado:', error);
+        window.financesLogger.error('language_apply_failed', error, {
+            module: 'dashboard',
+            trigger: 'selection'
+        });
     });
     const langSelect = document.getElementById('settingLanguage') || document.getElementById('langSelect');
     if (langSelect) langSelect.value = lang;

@@ -109,6 +109,7 @@ Proyecto-Finanzas/
 ├── img/
 │   └── grafico-de-barras.png           # Favicon e iconografía del sistema
 ├── js/
+│   ├── logger.js                      # Logs JSON, niveles y errores globales
 │   ├── scrip.js                        # Núcleo del Dashboard y sincronización de estado
 │   ├── scriptAjustes.js                # Controlador de configuración de usuario
 │   ├── scriptL.js                      # Controlador de autenticación y sesiones
@@ -167,6 +168,33 @@ npx serve .
 ### Opción 3: Extensión Live Server de VS Code
 1. Abre la carpeta del proyecto en VS Code.
 2. Haz clic derecho en `index.html` o `pages/login.html` y selecciona **Open with Live Server**.
+
+---
+
+## Logs estructurados para mantenimiento
+
+El logger común está en [`js/logger.js`](js/logger.js) y se carga en las páginas de la aplicación antes de sus scripts. Cada mensaje se imprime como una línea JSON en la consola del navegador, con fecha, nivel, evento, entorno, página, sesión y UID autenticado si existe. También registra errores JavaScript no capturados y promesas rechazadas.
+
+Desde las herramientas de desarrollador del navegador (F12 → Console), puedes usar:
+
+```js
+financesLogger.info('firestore_save_success', { module: 'wallets' });
+financesLogger.warn('firebase_unavailable', { module: 'daily_expenses' });
+financesLogger.error('firestore_save_failed', new Error('Permission denied'), {
+  module: 'wallets',
+  operation: 'setDoc'
+});
+```
+
+Los niveles aceptados son `debug`, `info`, `warn` y `error`. En `localhost` se muestran todos por defecto; en producción solo advertencias y errores. Para cambiar el nivel desde la consola:
+
+```js
+financesLogger.setLevel('debug');
+financesLogger.getLevel();
+financesLogger.resetLevel();
+```
+
+`setLevel` guarda la preferencia en `localStorage` (`finances_log_level`) para esta app y navegador; `resetLevel` vuelve al nivel predeterminado del entorno. Los datos con nombres típicamente sensibles (credenciales, correo, montos, transacciones, cuentas e imágenes) se ocultan automáticamente. Aun así, registra solo metadatos técnicos y no agregues datos personales a las propiedades de contexto. Los logs se quedan en la consola local: no se almacenan ni se envían a terceros. Para monitoreo centralizado de producción, hace falta integrar un servicio o backend con controles de acceso y retención apropiados.
 
 ---
 

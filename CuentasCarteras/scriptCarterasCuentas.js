@@ -43,7 +43,10 @@ function initFirebaseListener() {
                 const emailSpan = document.getElementById('userEmailDisplay');
                 if (emailSpan) emailSpan.textContent = profile.username || 'Usuario';
             } catch (error) {
-                console.error('Error cargando perfil del usuario en Carteras:', error);
+                window.financesLogger.error('profile_load_failed', error, {
+                    module: 'wallets',
+                    operation: 'getDoc'
+                });
                 const emailSpan = document.getElementById('userEmailDisplay');
                 if (emailSpan) emailSpan.textContent = 'Usuario';
             }
@@ -76,7 +79,10 @@ async function loadFirebaseData() {
             await saveFirebaseData();
         }
     } catch (e) {
-        console.error("Error cargando carteras/cuentas desde Firestore:", e);
+        window.financesLogger.error('firestore_read_failed', e, {
+            module: 'wallets',
+            operation: 'getDoc'
+        });
     }
     renderAll();
 }
@@ -97,7 +103,10 @@ async function saveFirebaseData() {
             bankAccounts: state.bankAccounts
         }, { merge: true });
     } catch (e) {
-        console.error("Error guardando en Firestore:", e);
+        window.financesLogger.error('firestore_write_failed', e, {
+            module: 'wallets',
+            operation: 'setDoc'
+        });
     }
     renderAll();
 }
@@ -106,7 +115,10 @@ function logoutUser() {
     const { signOut } = window.dbMethods;
     signOut(window.auth).then(() => {
         window.location.reload();
-    }).catch(err => console.error("Error al cerrar sesión", err));
+    }).catch(err => window.financesLogger.error('logout_failed', err, {
+        module: 'wallets',
+        operation: 'signOut'
+    }));
 }
 
 function toggleSidebar() {
@@ -417,7 +429,10 @@ async function processTransaction(e) {
             }, { merge: true });
 
         } catch (e) {
-            console.error("Error guardando en Firestore:", e);
+            window.financesLogger.error('firestore_write_failed', e, {
+                module: 'wallets',
+                operation: 'setDoc'
+            });
         }
     }
 

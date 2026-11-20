@@ -197,7 +197,10 @@
         if (currencySelect) currencySelect.value = settings.currency;
         window.currencySymbol = settings.currency;
         applyLanguage(settings.language).catch(error => {
-            console.error('Error aplicando el idioma guardado:', error);
+            window.financesLogger.error('language_apply_failed', error, {
+                module: 'settings',
+                trigger: 'stored_settings'
+            });
         });
     }
 
@@ -209,7 +212,10 @@
             detail: settings
         }));
         applyLanguage(settings.language).catch(error => {
-            console.error('Error aplicando el idioma seleccionado:', error);
+            window.financesLogger.error('language_apply_failed', error, {
+                module: 'settings',
+                trigger: 'selection'
+            });
         });
     }
 
@@ -290,7 +296,10 @@
             window.currencySymbol = settings.currency;
             if (event.key === SETTINGS_KEYS.language) {
                 applyLanguage(settings.language).catch(error => {
-                    console.error('Error aplicando el idioma actualizado:', error);
+                    window.financesLogger.error('language_apply_failed', error, {
+                        module: 'settings',
+                        trigger: 'storage_event'
+                    });
                 });
             }
             window.dispatchEvent(new CustomEvent('finances-settings-changed', {

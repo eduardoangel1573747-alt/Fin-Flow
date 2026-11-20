@@ -46,7 +46,10 @@ async function addMovement(type, description, amount, categoryOrSource) {
             renderHistoryPage();
         }
     } catch (error) {
-        console.error("Error al guardar en Firebase:", error);
+        window.financesLogger.error('firestore_write_failed', error, {
+            module: 'wallet_history',
+            operation: 'setDoc'
+        });
     }
 }
 
@@ -116,7 +119,10 @@ async function loadUserHistoryData(uid) {
         populateMonthSelector();
         renderHistoryPage();
     } catch (err) {
-        console.error("Error cargando el historial:", err);
+        window.financesLogger.error('history_load_failed', err, {
+            module: 'wallet_history',
+            operation: 'getDoc'
+        });
     }
 }
 

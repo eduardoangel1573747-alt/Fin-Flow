@@ -61,7 +61,9 @@ async function initDailyHistoryPage() {
     if (!firebaseReady) {
         historyLoadErrorKey = 'dailyFirebaseUnavailable';
         historyLoadError = getTranslation(historyLoadErrorKey, 'No se pudo conectar con Firebase. Recarga la página para intentarlo de nuevo.');
-        console.error(historyLoadError);
+        window.financesLogger.error('firebase_unavailable', new Error(historyLoadError), {
+            module: 'daily_expense_history'
+        });
         renderDailyHistoryPage();
         return;
     }
@@ -71,7 +73,9 @@ async function initDailyHistoryPage() {
     if (!user) {
         historyLoadErrorKey = 'dailyNoSession';
         historyLoadError = getTranslation(historyLoadErrorKey, 'No hay una sesión activa. Inicia sesión para consultar tus gastos.');
-        console.warn(historyLoadError);
+        window.financesLogger.warn('authentication_required', {
+            module: 'daily_expense_history'
+        });
         renderDailyHistoryPage();
         return;
     }
@@ -100,7 +104,10 @@ async function initDailyHistoryPage() {
             historyStorage = 'dailyExpenses';
         }
     } catch (error) {
-        console.error("Error al leer de Firestore:", error);
+        window.financesLogger.error('firestore_read_failed', error, {
+            module: 'daily_expense_history',
+            operation: 'getDoc'
+        });
         historyLoadErrorKey = 'dailyLoadFailed';
         historyLoadError = getTranslation(historyLoadErrorKey, 'No se pudieron cargar tus gastos. Revisa tu conexión e inténtalo de nuevo.');
         window.dailyExpenses = [];
@@ -247,7 +254,10 @@ async function deleteDailyExpense(id) {
         renderDailyHistoryPage();
         alert(getTranslation('dailyDeleteSuccess', 'Gasto eliminado exitosamente.'));
     } catch (err) {
-        console.error("Error al borrar el registro en Firestore:", err);
+        window.financesLogger.error('firestore_delete_failed', err, {
+            module: 'daily_expense_history',
+            operation: 'setDoc'
+        });
         alert(getTranslation('dailyDeleteFailed', 'Ocurrió un error al intentar eliminar el registro.'));
     }
 }

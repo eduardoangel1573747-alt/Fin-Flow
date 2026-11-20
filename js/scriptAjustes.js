@@ -92,7 +92,10 @@ async function initializeSettings() {
         try {
             await applyLanguage(event.target.value);
         } catch (error) {
-            console.error('Error aplicando el idioma seleccionado:', error);
+            window.financesLogger.error('language_apply_failed', error, {
+                module: 'settings',
+                trigger: 'selection'
+            });
         }
     });
 
@@ -166,7 +169,10 @@ async function submitFeedback(event) {
         document.getElementById('feedbackForm').reset();
         showFeedbackStatus('feedbackSent', 'success');
     } catch (error) {
-        console.error('Error al guardar la sugerencia en Firebase:', error);
+        window.financesLogger.error('feedback_save_failed', error, {
+            module: 'settings',
+            operation: 'setDoc'
+        });
         showFeedbackStatus('feedbackFailed', 'error');
     } finally {
         submitButton.disabled = false;
@@ -181,7 +187,10 @@ window.addEventListener('storage', async event => {
         try {
             await applyLanguage(language);
         } catch (error) {
-            console.error('Error aplicando el idioma actualizado:', error);
+            window.financesLogger.error('language_apply_failed', error, {
+                module: 'settings',
+                trigger: 'storage_event'
+            });
         }
     } else if (event.key === settingsKeys.currency) {
         document.getElementById('selectorMoneda').value = getStoredValue(settingsKeys.currency, allowedCurrencies, '$');
@@ -207,5 +216,7 @@ document.addEventListener('click', function(event) {
 
 // Inicializar módulo
 initializeSettings().catch(error => {
-    console.error('Error inicializando los ajustes:', error);
+    window.financesLogger.error('settings_initialization_failed', error, {
+        module: 'settings'
+    });
 });

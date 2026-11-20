@@ -77,7 +77,10 @@ async function loadFirebaseData() {
             await saveFirebaseData();
         }
     } catch (e) {
-        console.error("Error al cargar datos desde Firestore:", e);
+        window.financesLogger.error('firestore_read_failed', e, {
+            module: 'savings_goals',
+            operation: 'getDoc'
+        });
     }
     renderSavingsGoals();
 }
@@ -95,7 +98,10 @@ async function saveFirebaseData() {
     try {
         await setDoc(userDocRef, { savingsBoxes: savingsState.savingsBoxes }, { merge: true });
     } catch (e) {
-        console.error("Error al guardar en Firestore:", e);
+        window.financesLogger.error('firestore_write_failed', e, {
+            module: 'savings_goals',
+            operation: 'setDoc'
+        });
     }
     renderSavingsGoals();
 }
@@ -104,7 +110,10 @@ function logoutUser() {
     const { signOut } = window.dbMethods;
     signOut(window.auth).then(() => {
         window.location.reload();
-    }).catch(err => console.error("Error al cerrar sesión", err));
+    }).catch(err => window.financesLogger.error('logout_failed', err, {
+        module: 'savings_goals',
+        operation: 'signOut'
+    }));
 }
 
 function toggleSidebar() {
@@ -145,7 +154,9 @@ async function createNewSavingsGoal(e) {
         try {
             imageBase64 = await convertFileToBase64(imageInput.files[0]);
         } catch (err) {
-            console.error("Error al procesar la imagen", err);
+            window.financesLogger.error('goal_image_processing_failed', err, {
+                module: 'savings_goals'
+            });
         }
     }
 
