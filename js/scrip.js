@@ -334,8 +334,9 @@ function addSpentManual(id, inputElement) {
             const previousCycleSpent = Number.isFinite(cat.cycleSpent) ? cat.cycleSpent : cat.spent;
             cat.spent += val;
             cat.cycleSpent = previousCycleSpent + val;
-            if (cat.limit > 0 && cat.cycleSpent >= cat.limit) {
-                cat.cycleSpent %= cat.limit;
+            if (cat.limit > 0 && previousCycleSpent >= cat.limit) {
+                alert(`La categoría "${cat.name}" ya alcanzó su límite (${currencySymbol}${cat.limit.toFixed(2)}). Reiníciala manualmente para continuar.`);
+                return;
             }
             if (!cat.pendingLogs) cat.pendingLogs = [];
             cat.pendingLogs.push({ desc: `Consumo Presupuesto: ${cat.name}`, amount: val, date: today, category: cat.name });

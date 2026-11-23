@@ -1,4 +1,4 @@
-const TIEMPO_INACTIVIDAD_MS = 60 * 1000; // 60 segundos en total
+const TIEMPO_INACTIVIDAD_MS = 60 * 5000; // 300 segundos en total
 const TIEMPO_AVISO_ANTES_MS = 15 * 1000; // Mostrar aviso 15 segundos antes (a los 45s)
 const CLAVE_ULTIMA_ACTIVIDAD = "index_last_activity_timestamp";
 const INTERVALO_THROTTLE_MS = 1000;
@@ -28,8 +28,8 @@ function iniciarControlInactividadConModal() {
         display: flex;
       }
       #modal-inactividad-caja {
-        background: #ffffff;
-        color: #1f2937;
+        background: #0f172a;
+        color: #e5e7eb;
         padding: 24px;
         border-radius: 10px;
         max-width: 380px;
