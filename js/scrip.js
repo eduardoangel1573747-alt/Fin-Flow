@@ -334,6 +334,7 @@ function addSpentManual(id, inputElement) {
             const previousCycleSpent = Number.isFinite(cat.cycleSpent) ? cat.cycleSpent : cat.spent;
             cat.spent += val;
             cat.cycleSpent = previousCycleSpent + val;
+            // Verificar si se supera el límite de la categoría
             if (cat.limit > 0 && previousCycleSpent >= cat.limit) {
                 alert(`La categoría "${cat.name}" ya alcanzó su límite (${currencySymbol}${cat.limit.toFixed(2)}). Reiníciala manualmente para continuar.`);
                 return;
