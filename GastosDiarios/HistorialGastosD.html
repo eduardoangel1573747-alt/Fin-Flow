@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Historial de Gastos Diarios - Fin Flow FPR</title>
+    <title data-i18n="pageTitleDailyHistory">Historial de Gastos Diarios - Fin Flow FPR</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome icons -->
@@ -37,19 +37,19 @@
                     <i class="fa-solid fa-receipt text-lg sm:text-xl"></i>
                 </div>
                 <div>
-                    <h1 class="text-base sm:text-xl font-black bg-gradient-to-r from-purple-400 to-indigo-300 bg-clip-text text-transparent">
+                    <h1 class="text-base sm:text-xl font-black bg-gradient-to-r from-purple-400 to-indigo-300 bg-clip-text text-transparent" data-i18n="dailyHistoryHeading">
                         Historial de Gastos Diarios
                     </h1>
-                    <p class="text-[10px] sm:text-xs text-slate-400 hidden sm:block">Registro y consulta detallada de gastos</p>
+                    <p class="text-[10px] sm:text-xs text-slate-400 hidden sm:block" data-i18n="dailyHistorySub">Registro y consulta detallada de gastos</p>
                 </div>
             </div>
 
             <div class="flex items-center gap-2 sm:gap-3">
                 <a href="GastosDiarios.html" class="bg-slate-700/80 hover:bg-slate-700 text-slate-200 text-xs sm:text-sm font-semibold px-3 py-2 rounded-lg border border-slate-600/80 transition flex items-center gap-2">
                     <i class="fa-solid fa-arrow-left"></i>
-                    <span class="hidden xs:inline">Volver a Gastos</span>
+                    <span class="hidden xs:inline" data-i18n="dailyHistoryBack">Volver a Gastos</span>
                 </a>
-                <button onclick="openSettingsModal()" class="bg-slate-700/80 hover:bg-slate-700 text-slate-200 text-xs sm:text-sm font-semibold p-2.5 rounded-lg border border-slate-600/80 transition">
+                <button onclick="window.location.href='../pages/Ajustes.html'" class="bg-slate-700/80 hover:bg-slate-700 text-slate-200 text-xs sm:text-sm font-semibold p-2.5 rounded-lg border border-slate-600/80 transition">
                     <i class="fa-solid fa-gear"></i>
                 </button>
             </div>
@@ -60,55 +60,181 @@
     <main class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 flex-1 w-full space-y-6">
 
         <!-- RESUMEN EN TARJETAS -->
+        <!-- KPIs DEL HISTORIAL DE GASTOS DIARIOS -->
         <section class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-            <div class="bg-slate-800/60 border border-slate-700/60 p-3.5 sm:p-4 rounded-xl backdrop-blur-sm">
-                <div class="text-[11px] sm:text-xs text-slate-400 font-medium truncate">Gastos del Mes</div>
-                <div id="histMonthExpense" class="text-base sm:text-2xl font-bold text-rose-400 mt-1 truncate">$0.00</div>
+            
+            <!-- 1. Gastos del Mes (Rose) -->
+            <div class="group relative overflow-hidden bg-slate-900/90 backdrop-blur-2xl p-4 sm:p-5 rounded-2xl border border-slate-800/90 shadow-[0_12px_32px_rgba(244,_63,_94,_0.08)] hover:border-rose-500/40 hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between">
+                <div class="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-rose-400/60 to-transparent"></div>
+                <div class="absolute -right-6 -top-6 w-20 h-20 rounded-full bg-rose-500/10 blur-xl group-hover:bg-rose-500/20 transition-colors pointer-events-none"></div>
+
+                <div class="flex items-center justify-between gap-2 mb-3">
+                    <span class="w-8 h-8 rounded-xl bg-gradient-to-br from-rose-500/20 to-pink-500/10 border border-rose-500/30 flex items-center justify-center text-rose-400 shadow-inner shrink-0">
+                        <i class="fa-solid fa-arrow-trend-down text-xs sm:text-sm"></i>
+                    </span>
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-rose-400/90 bg-rose-500/10 border border-rose-500/20 px-2 py-0.5 rounded-full">
+                        - Mes
+                    </span>
+                </div>
+
+                <div>
+                    <div class="text-[11px] sm:text-xs text-slate-400 font-semibold tracking-wide truncate" data-i18n="dailyHistExpenses">Gastos del Mes</div>
+                    <div id="histMonthExpense" class="text-lg sm:text-2xl font-extrabold text-white tracking-tight tabular-nums mt-0.5 truncate">$0.00</div>
+                </div>
             </div>
-            <div class="bg-slate-800/60 border border-slate-700/60 p-3.5 sm:p-4 rounded-xl backdrop-blur-sm">
-                <div class="text-[11px] sm:text-xs text-slate-400 font-medium truncate">Promedio Diario</div>
-                <div id="histDailyAvg" class="text-base sm:text-2xl font-bold text-purple-400 mt-1 truncate">$0.00</div>
+
+            <!-- 2. Promedio Diario (Purple) -->
+            <div class="group relative overflow-hidden bg-slate-900/90 backdrop-blur-2xl p-4 sm:p-5 rounded-2xl border border-slate-800/90 shadow-[0_12px_32px_rgba(168,_85,_247,_0.08)] hover:border-purple-500/40 hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between">
+                <div class="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-purple-400/60 to-transparent"></div>
+                <div class="absolute -right-6 -top-6 w-20 h-20 rounded-full bg-purple-500/10 blur-xl group-hover:bg-purple-500/20 transition-colors pointer-events-none"></div>
+
+                <div class="flex items-center justify-between gap-2 mb-3">
+                    <span class="w-8 h-8 rounded-xl bg-gradient-to-br from-purple-500/20 to-indigo-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400 shadow-inner shrink-0">
+                        <i class="fa-solid fa-chart-line text-xs sm:text-sm"></i>
+                    </span>
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-purple-400/90 bg-purple-500/10 border border-purple-500/20 px-2 py-0.5 rounded-full">
+                        Media
+                    </span>
+                </div>
+
+                <div>
+                    <div class="text-[11px] sm:text-xs text-slate-400 font-semibold tracking-wide truncate" data-i18n="dailyHistAverage">Promedio Diario</div>
+                    <div id="histDailyAvg" class="text-lg sm:text-2xl font-extrabold text-white tracking-tight tabular-nums mt-0.5 truncate">$0.00</div>
+                </div>
             </div>
-            <div class="bg-slate-800/60 border border-slate-700/60 p-3.5 sm:p-4 rounded-xl backdrop-blur-sm">
-                <div class="text-[11px] sm:text-xs text-slate-400 font-medium truncate">Total de Registros</div>
-                <div id="histTotalCount" class="text-base sm:text-2xl font-bold text-cyan-400 mt-1 truncate">0</div>
+
+            <!-- 3. Total de Registros (Cyan) -->
+            <div class="group relative overflow-hidden bg-slate-900/90 backdrop-blur-2xl p-4 sm:p-5 rounded-2xl border border-slate-800/90 shadow-[0_12px_32px_rgba(6,_182,_212,_0.08)] hover:border-cyan-500/40 hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between">
+                <div class="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/60 to-transparent"></div>
+                <div class="absolute -right-6 -top-6 w-20 h-20 rounded-full bg-cyan-500/10 blur-xl group-hover:bg-cyan-500/20 transition-colors pointer-events-none"></div>
+
+                <div class="flex items-center justify-between gap-2 mb-3">
+                    <span class="w-8 h-8 rounded-xl bg-gradient-to-br from-cyan-500/20 to-sky-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 shadow-inner shrink-0">
+                        <i class="fa-solid fa-receipt text-xs sm:text-sm"></i>
+                    </span>
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-cyan-400/90 bg-cyan-500/10 border border-cyan-500/20 px-2 py-0.5 rounded-full">
+                        Conteo
+                    </span>
+                </div>
+
+                <div>
+                    <div class="text-[11px] sm:text-xs text-slate-400 font-semibold tracking-wide truncate" data-i18n="dailyHistRecords">Total de Registros</div>
+                    <div id="histTotalCount" class="text-lg sm:text-2xl font-extrabold text-white tracking-tight tabular-nums mt-0.5 truncate">0</div>
+                </div>
             </div>
-            <div class="bg-slate-800/60 border border-slate-700/60 p-3.5 sm:p-4 rounded-xl backdrop-blur-sm">
-                <div class="text-[11px] sm:text-xs text-slate-400 font-medium truncate">Gasto Más Alto</div>
-                <div id="histMaxExpense" class="text-base sm:text-2xl font-bold text-amber-400 mt-1 truncate">$0.00</div>
+
+            <!-- 4. Gasto Más Alto (Amber) -->
+            <div class="group relative overflow-hidden bg-slate-900/90 backdrop-blur-2xl p-4 sm:p-5 rounded-2xl border border-slate-800/90 shadow-[0_12px_32px_rgba(245,_158,_11,_0.08)] hover:border-amber-500/40 hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between">
+                <div class="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-amber-400/60 to-transparent"></div>
+                <div class="absolute -right-6 -top-6 w-20 h-20 rounded-full bg-amber-500/10 blur-xl group-hover:bg-amber-500/20 transition-colors pointer-events-none"></div>
+
+                <div class="flex items-center justify-between gap-2 mb-3">
+                    <span class="w-8 h-8 rounded-xl bg-gradient-to-br from-amber-500/20 to-yellow-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 shadow-inner shrink-0">
+                        <i class="fa-solid fa-fire text-xs sm:text-sm"></i>
+                    </span>
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-amber-400/90 bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 rounded-full">
+                        Pico
+                    </span>
+                </div>
+
+                <div>
+                    <div class="text-[11px] sm:text-xs text-slate-400 font-semibold tracking-wide truncate" data-i18n="dailyHistMax">Gasto Más Alto</div>
+                    <div id="histMaxExpense" class="text-lg sm:text-2xl font-extrabold text-white tracking-tight tabular-nums mt-0.5 truncate">$0.00</div>
+                </div>
             </div>
+
         </section>
 
         <!-- FILTROS DE BÚSQUEDA -->
-        <section class="bg-slate-800/80 border border-slate-700/80 p-4 rounded-xl space-y-3 sm:space-y-0 sm:flex sm:items-center sm:justify-between gap-4">
-            <div class="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+        <section class="relative overflow-hidden bg-slate-900/90 backdrop-blur-2xl border border-slate-800/90 p-4 sm:p-5 rounded-2xl shadow-[0_12px_32px_rgba(168,_85,_247,_0.08)] space-y-3 sm:space-y-0 sm:flex sm:items-center sm:justify-between gap-4">
+            
+            <!-- Detalle luminoso superior + brillo ambiental -->
+            <div class="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-purple-400/60 to-transparent"></div>
+            <div class="absolute -left-8 -top-8 w-28 h-28 rounded-full bg-purple-500/10 blur-2xl pointer-events-none"></div>
+
+            <!-- Indicador visual de filtros (Desktop) -->
+            <div class="hidden md:flex items-center gap-3">
+                <span class="w-9 h-9 rounded-xl bg-gradient-to-br from-purple-500/20 to-indigo-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400 shadow-inner shrink-0">
+                    <i class="fa-solid fa-magnifying-glass-dollar text-sm"></i>
+                </span>
+                <div>
+                    <p class="text-xs font-bold text-white tracking-tight">Búsqueda y Periodo</p>
+                    <p class="text-[11px] text-slate-400">Filtra tus gastos diarios por mes o palabra clave</p>
+                </div>
+            </div>
+
+            <!-- Controles de Selección y Búsqueda -->
+            <div class="flex flex-col sm:flex-row gap-3 w-full sm:w-auto relative z-10">
+                
+                <!-- Selector: Mes -->
                 <div class="w-full sm:w-48">
-                    <label class="block text-[10px] sm:text-xs font-semibold text-slate-400 mb-1">Seleccionar Mes</label>
-                    <select id="monthSelector" onchange="renderDailyHistoryPage()" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs sm:text-sm text-slate-200 focus:outline-none focus:border-purple-500">
-                    </select>
+                    <label for="monthSelector" class="block text-[10px] sm:text-xs uppercase tracking-wider font-bold text-slate-400 mb-1.5" data-i18n="lblMonth">
+                        Seleccionar Mes
+                    </label>
+                    <div class="relative group">
+                        <i class="fa-solid fa-calendar-days absolute left-3 top-1/2 -translate-y-1/2 text-purple-400 group-focus-within:text-purple-300 text-xs pointer-events-none transition-colors"></i>
+                        <select id="monthSelector" onchange="renderDailyHistoryPage()" 
+                            class="w-full bg-slate-950/75 hover:bg-slate-950/95 border border-slate-700/70 hover:border-slate-600 rounded-xl pl-8 pr-8 py-2.5 text-xs sm:text-sm font-medium text-slate-100 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/30 transition-all appearance-none cursor-pointer">
+                        </select>
+                        <div class="absolute inset-y-0 right-0 flex items-center px-2.5 pointer-events-none text-slate-400 group-hover:text-slate-200 transition-colors">
+                            <i class="fa-solid fa-chevron-down text-[11px]"></i>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- Input: Buscar por Descripción -->
                 <div class="w-full sm:w-64">
-                    <label class="block text-[10px] sm:text-xs font-semibold text-slate-400 mb-1">Buscar por Descripción</label>
-                    <input type="text" id="searchInput" oninput="renderDailyHistoryPage()" placeholder="Ej. Almuerzo, Gasolina..." class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs sm:text-sm text-slate-200 focus:outline-none focus:border-purple-500">
+                    <label for="searchInput" class="block text-[10px] sm:text-xs uppercase tracking-wider font-bold text-slate-400 mb-1.5" data-i18n="dailySearchLabel">
+                        Buscar por Descripción
+                    </label>
+                    <div class="relative group">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-purple-400 group-focus-within:text-purple-300 text-xs pointer-events-none transition-colors"></i>
+                        <input type="text" id="searchInput" oninput="renderDailyHistoryPage()" data-i18n-placeholder="dailySearchPlaceholder" placeholder="Ej. Almuerzo, Gasolina..." 
+                            class="w-full bg-slate-950/75 hover:bg-slate-950/95 border border-slate-700/70 hover:border-slate-600 rounded-xl pl-8 pr-3.5 py-2.5 text-xs sm:text-sm font-medium text-slate-100 placeholder-slate-500 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/30 transition-all">
+                    </div>
                 </div>
+
             </div>
         </section>
 
-        <!-- TABLA -->
-        <section class="bg-slate-800/80 border border-slate-700/80 rounded-xl overflow-hidden shadow-xl">
-            <div class="overflow-x-auto">
+        <!-- TABLA DE GASTOS DIARIOS -->
+        <section class="relative overflow-hidden bg-slate-900/90 backdrop-blur-2xl border border-slate-800/90 rounded-2xl shadow-[0_20px_50px_rgba(168,_85,_247,_0.08)]">
+            
+            <!-- Detalle luminoso superior + brillo ambiental -->
+            <div class="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-purple-400/60 to-transparent z-10"></div>
+            <div class="absolute -right-10 -top-10 w-32 h-32 rounded-full bg-purple-500/10 blur-2xl pointer-events-none"></div>
+
+            <!-- Encabezado visual de la tabla -->
+            <div class="flex items-center justify-between px-4 sm:px-5 py-3.5 border-b border-slate-800/80 bg-slate-950/40">
+                <div class="flex items-center gap-2.5">
+                    <span class="w-8 h-8 rounded-xl bg-gradient-to-br from-purple-500/20 to-indigo-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400 shadow-inner shrink-0">
+                        <i class="fa-solid fa-table-list text-xs sm:text-sm"></i>
+                    </span>
+                    <div>
+                        <h3 class="text-xs sm:text-sm font-bold text-white tracking-tight">Registros de Gastos Diarios</h3>
+                        <p class="text-[11px] text-slate-400 hidden sm:block">Desglose detallado con categoría, origen y acciones</p>
+                    </div>
+                </div>
+                <span class="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-semibold text-purple-300 bg-purple-500/10 border border-purple-500/20 px-2.5 py-1 rounded-full">
+                    <span class="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse"></span>
+                    Diario
+                </span>
+            </div>
+
+            <!-- Contenedor Responsive de la Tabla -->
+            <div class="overflow-x-auto custom-scroll">
                 <table class="w-full text-left text-xs sm:text-sm border-collapse min-w-[600px]">
                     <thead>
-                        <tr class="bg-slate-900/80 border-b border-slate-700/80 text-slate-400 font-semibold uppercase text-[10px] sm:text-xs tracking-wider">
-                            <th class="py-3 px-4">Fecha</th>
-                            <th class="py-3 px-4">Descripción</th>
-                            <th class="py-3 px-4">Categoría</th>
-                            <th class="py-3 px-4">Origen</th>
-                            <th class="py-3 px-4 text-right">Monto</th>
-                            <th class="py-3 px-4 text-center">Acciones</th>
+                        <tr class="bg-slate-950/75 border-b border-slate-800 text-slate-400 font-bold uppercase text-[10px] sm:text-xs tracking-wider">
+                            <th class="py-3.5 px-4 whitespace-nowrap" data-i18n="thDate">Fecha</th>
+                            <th class="py-3.5 px-4" data-i18n="thDesc">Descripción</th>
+                            <th class="py-3.5 px-4" data-i18n="dailyCategory">Categoría</th>
+                            <th class="py-3.5 px-4" data-i18n="dailyOrigin">Origen</th>
+                            <th class="py-3.5 px-4 text-right whitespace-nowrap" data-i18n="thAmount">Monto</th>
+                            <th class="py-3.5 px-4 text-center whitespace-nowrap" data-i18n="dailyActions">Acciones</th>
                         </tr>
                     </thead>
-                    <tbody id="historyTableBody" class="divide-y divide-slate-800 text-slate-200">
+                    <tbody id="historyTableBody" class="divide-y divide-slate-800/60 text-slate-200 [&>tr]:transition-colors [&>tr:hover]:bg-slate-800/40 [&>tr>td:nth-child(5)]:tabular-nums">
                     </tbody>
                 </table>
             </div>
@@ -118,7 +244,7 @@
 
     <!-- FOOTER -->
     <footer class="bg-slate-800/60 border-t border-slate-700/60 mt-8 py-4 text-center text-xs text-slate-400 px-4">
-        <p>&copy; <span id="year"></span> Fin Flow FPR. Todos los derechos reservados.</p>
+        <p>&copy; <span id="year"></span> Fin Flow FPR. <span data-i18n="rights">Todos los derechos reservados.</span></p>
     </footer>
 
     <!-- MODAL DE CONFIGURACIÓN -->
@@ -127,37 +253,40 @@
             <div class="flex justify-between items-center border-b border-slate-700 pb-3">
                 <h3 class="font-bold text-slate-100 flex items-center gap-2">
                     <i class="fa-solid fa-sliders text-purple-400"></i>
-                    <span>Configuración</span>
+                    <span data-i18n="settingsTitle">Configuración</span>
                 </h3>
                 <button onclick="closeSettingsModal()" class="text-slate-400 hover:text-slate-200 p-1"><i class="fa-solid fa-xmark"></i></button>
             </div>
             
             <div class="space-y-3">
                 <div>
-                    <label class="block text-xs font-semibold text-slate-400 mb-1">Idioma / Language</label>
+                    <label class="block text-xs font-semibold text-slate-400 mb-1" data-i18n="label_idioma">Idioma / Language</label>
                     <select id="langSelect" onchange="changeLanguage(this.value)" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-200">
                         <option value="es">Español</option>
                         <option value="en">English</option>
+                        <option value="fr">Français</option>
                     </select>
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold text-slate-400 mb-1">Moneda / Currency</label>
+                    <label class="block text-xs font-semibold text-slate-400 mb-1" data-i18n="label_moneda">Moneda / Currency</label>
                     <select id="currencySelect" onchange="changeCurrency(this.value)" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-purple-500">
-                        <option value="$">USD ($)</option>
-                        <option value="€">EUR (€)</option>
-                        <option value="Q">GTQ (Q)</option>
+                        <option value="$" data-i18n="dollar">USD ($)</option>
+                        <option value="€" data-i18n="euro">EUR (€)</option>
+                        <option value="Q" data-i18n="quetzal">GTQ (Q)</option>
+                        <option value="£" data-i18n="pound">GBP (£)</option>
                     </select>
                 </div>
             </div>
 
             <div class="pt-2">
                 <button onclick="closeSettingsModal()" class="w-full bg-purple-600 hover:bg-purple-500 text-white font-semibold py-2 rounded-lg text-xs transition">
-                    Aceptar / Done
+                    <span data-i18n="settingsApply">Aceptar / Done</span>
                 </button>
             </div>
         </div>
     </div>
 
+    <script src="../js/logger.js"></script>
     <script type="module" src="../config/firebase.js"></script>
 
     <!-- SCRIPT PRINCIPAL -->

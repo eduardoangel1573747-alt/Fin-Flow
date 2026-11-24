@@ -1,0 +1,318 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "Fin Flow FPR - Flujo de Trabajo y Operaciones Financieras",
+    "subtitle": "Flujo integral de autenticación, captura de gastos, gestión de carteras y sincronización Firebase",
+    "locale": "es",
+    "quality_profile": "showcase",
+    "legend": { "mode": "hidden" },
+    "output": "workflow.html",
+    "repository": {
+      "url": "https://github.com/eduardoangel1573747-alt/finanzas-pro",
+      "revision": "14ce947b2106b63b8d9e4c0242a2ec040d4eff92"
+    }
+  },
+  "lanes": [
+    { "id": "client_ui", "label": "Interfaz de Usuario (Cliente Web)" },
+    { "id": "security_auth", "label": "Autenticación & Seguridad", "variant": "exception" },
+    { "id": "app_logic", "label": "Lógica de Negocio y Controladores" },
+    { "id": "cloud_storage", "label": "Persistencia y Servicios Firebase" }
+  ],
+  "phases": [
+    { "id": "phase_ingreso", "label": "1. Acceso y Sesión", "fromCol": 0, "toCol": 1, "variant": "security" },
+    { "id": "phase_operaciones", "label": "2. Operaciones y Módulos", "fromCol": 2, "toCol": 3, "variant": "emphasis" },
+    { "id": "phase_consolidacion", "label": "3. Cierre y Auditoría", "fromCol": 4, "toCol": 5, "variant": "default" }
+  ],
+  "groups": [
+    { "id": "grp_auth", "label": "Control de Acceso", "lane": "security_auth", "fromCol": 0, "toCol": 1, "variant": "security" },
+    { "id": "grp_modules", "label": "Módulos de Gestión", "lane": "client_ui", "fromCol": 2, "toCol": 3, "variant": "emphasis" },
+    { "id": "grp_sync", "label": "Sincronización Cloud", "lane": "cloud_storage", "fromCol": 1, "toCol": 4, "variant": "dashed" },
+    { "id": "grp_audit", "label": "Auditoría de Saldos", "lane": "app_logic", "fromCol": 4, "toCol": 5, "variant": "default" }
+  ],
+  "mainPath": [
+    "login_view",
+    "auth_submit",
+    "firebase_auth",
+    "firestore_init",
+    "dashboard_view",
+    "modules_ui",
+    "finance_logic",
+    "month_close_modal",
+    "history_view",
+    "audit_analysis"
+  ],
+  "nodes": [
+    {
+      "id": "login_view",
+      "lane": "client_ui",
+      "col": 0,
+      "type": "frontend",
+      "label": "Login / Registro",
+      "sublabel": "pages/login.html",
+      "icon": "person",
+      "sources": [
+        {
+          "path": "pages/login.html",
+          "line": 1,
+          "end_line": 50,
+          "label": "Formulario de inicio de sesión"
+        }
+      ]
+    },
+    {
+      "id": "auth_submit",
+      "lane": "security_auth",
+      "col": 0,
+      "type": "security",
+      "label": "Gestión Credenciales",
+      "sublabel": "scriptL.js: auth forms",
+      "tag": "Auth Gate",
+      "icon": "security",
+      "sources": [
+        {
+          "path": "js/scriptL.js",
+          "line": 35,
+          "end_line": 60,
+          "label": "Manejador handleLogin"
+        }
+      ]
+    },
+    {
+      "id": "firebase_auth",
+      "lane": "security_auth",
+      "col": 1,
+      "type": "cloud",
+      "label": "Firebase Auth",
+      "sublabel": "Verificación de token JWT",
+      "tag": "Identity",
+      "icon": "cloud",
+      "sources": [
+        {
+          "path": "config/firebase.js",
+          "line": 1,
+          "end_line": 35,
+          "label": "Inicialización Firebase Auth"
+        }
+      ]
+    },
+    {
+      "id": "firestore_init",
+      "lane": "cloud_storage",
+      "col": 1,
+      "type": "database",
+      "label": "Carga Firestore",
+      "sublabel": "doc users/{uid}/state",
+      "tag": "Carga Inicial",
+      "icon": "database",
+      "sources": [
+        {
+          "path": "js/scrip.js",
+          "line": 48,
+          "end_line": 66,
+          "label": "loadUserDataFromFirebase"
+        }
+      ]
+    },
+    {
+      "id": "dashboard_view",
+      "lane": "client_ui",
+      "col": 2,
+      "type": "frontend",
+      "label": "Dashboard Principal",
+      "sublabel": "index.html (KPIs y Saldo)",
+      "tag": "Vista Central",
+      "icon": "frontend",
+      "sources": [
+        {
+          "path": "index.html",
+          "line": 47,
+          "end_line": 122,
+          "label": "Navegación y estructura de dashboard"
+        }
+      ]
+    },
+    {
+      "id": "local_settings",
+      "lane": "app_logic",
+      "col": 2,
+      "type": "backend",
+      "label": "Ajustes Globales",
+      "sublabel": "settings-global.js (Moneda)",
+      "icon": "backend",
+      "sources": [
+        {
+          "path": "js/settings-global.js",
+          "line": 1,
+          "end_line": 40,
+          "label": "Parámetros globales de idioma y moneda"
+        }
+      ]
+    },
+    {
+      "id": "modules_ui",
+      "lane": "client_ui",
+      "col": 3,
+      "type": "frontend",
+      "label": "Módulos Financieros",
+      "sublabel": "Gastos, Carteras y Metas",
+      "icon": "frontend",
+      "sources": [
+        {
+          "path": "GastosDiarios/GastosDiarios.html",
+          "line": 1,
+          "end_line": 50,
+          "label": "Vistas de registro de gastos diarios"
+        }
+      ]
+    },
+    {
+      "id": "finance_logic",
+      "lane": "app_logic",
+      "col": 3,
+      "type": "backend",
+      "label": "Motor Financiero",
+      "sublabel": "Cálculo saldos y transacciones",
+      "tag": "State Manager",
+      "icon": "backend",
+      "sources": [
+        {
+          "path": "js/scrip.js",
+          "line": 8,
+          "end_line": 45,
+          "label": "Estado central reactivo y listeners"
+        }
+      ]
+    },
+    {
+      "id": "month_close_modal",
+      "lane": "app_logic",
+      "col": 4,
+      "type": "backend",
+      "label": "Cierre de Mes",
+      "sublabel": "openCloseMonthModal()",
+      "tag": "Conciliación",
+      "icon": "decision",
+      "sources": [
+        {
+          "path": "index.html",
+          "line": 72,
+          "end_line": 76,
+          "label": "Disparador de cierre de mes"
+        }
+      ]
+    },
+    {
+      "id": "firestore_save",
+      "lane": "cloud_storage",
+      "col": 4,
+      "type": "cloud",
+      "label": "Persistencia Cloud",
+      "sublabel": "setDoc(docRef, { state })",
+      "tag": "Auto-guardado",
+      "icon": "cloud",
+      "sources": [
+        {
+          "path": "js/scrip.js",
+          "line": 68,
+          "end_line": 85,
+          "label": "saveData persistencia Firestore"
+        }
+      ]
+    },
+    {
+      "id": "history_view",
+      "lane": "client_ui",
+      "col": 5,
+      "type": "frontend",
+      "label": "Historial y Filtros",
+      "sublabel": "Historial.html + Gastos Diarios",
+      "tag": "Reportes",
+      "icon": "calendar",
+      "sources": [
+        {
+          "path": "Historial.html",
+          "line": 1,
+          "end_line": 60,
+          "label": "Vista de auditoría e historial mensual"
+        }
+      ]
+    },
+    {
+      "id": "audit_analysis",
+      "lane": "app_logic",
+      "col": 5,
+      "type": "backend",
+      "label": "Análisis Financiero",
+      "sublabel": "Balance final y acumulados",
+      "icon": "flag",
+      "sources": [
+        {
+          "path": "js/scrip.js",
+          "line": 59,
+          "end_line": 65,
+          "label": "renderHistoryPage y métricas"
+        }
+      ]
+    },
+    {
+      "id": "cloud_backup",
+      "lane": "cloud_storage",
+      "col": 5,
+      "type": "cloud",
+      "label": "Respaldo Histórico",
+      "sublabel": "users/{uid}/globalHistory",
+      "tag": "Respaldo",
+      "icon": "cloud",
+      "sources": [
+        {
+          "path": "config/firebase.js",
+          "line": 10,
+          "end_line": 25,
+          "label": "Conexión a base de datos Firestore"
+        }
+      ]
+    }
+  ],
+  "edges": [
+    { "id": "edge_cred", "from": "login_view", "to": "auth_submit", "label": "Envía credenciales", "variant": "security" },
+    { "id": "edge_auth", "from": "auth_submit", "to": "firebase_auth", "label": "Valida usuario", "variant": "security" },
+    { "id": "edge_uid", "from": "firebase_auth", "to": "firestore_init", "label": "Token y UID válidos", "variant": "security" },
+    { "id": "edge_hydrate", "from": "firestore_init", "to": "dashboard_view", "label": "Hidrata estado local", "variant": "emphasis" },
+    { "id": "edge_pref", "from": "dashboard_view", "to": "local_settings", "label": "Aplica preferencias", "variant": "default" },
+    { "id": "edge_mod", "from": "dashboard_view", "to": "modules_ui", "label": "Navega a submódulo", "variant": "emphasis" },
+    { "id": "edge_calc", "from": "modules_ui", "to": "finance_logic", "label": "Registra movimiento", "variant": "emphasis" },
+    { "id": "edge_save", "from": "finance_logic", "to": "firestore_save", "label": "saveData() asíncrono", "variant": "emphasis" },
+    { "id": "edge_cycle", "from": "finance_logic", "to": "month_close_modal", "label": "Fin de periodo", "variant": "default" },
+    { "id": "edge_archive", "from": "month_close_modal", "to": "firestore_save", "label": "Archiva en globalHistory", "variant": "dashed" },
+    { "id": "edge_hist", "from": "month_close_modal", "to": "history_view", "label": "Consulta registros", "variant": "emphasis" },
+    { "id": "edge_audit", "from": "history_view", "to": "audit_analysis", "label": "Genera reporte", "variant": "default" }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "Flujo Operativo Fin Flow",
+      "items": [
+        "El usuario inicia sesión o se registra mediante Firebase Authentication",
+        "onAuthStateChanged recupera el estado de Firestore (ingresos, transacciones, carteras y metas)",
+        "El Dashboard sincroniza cálculos en tiempo real y persiste cambios automáticamente"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Gobernanza y Cierre Mensual",
+      "items": [
+        "El modal de Cierre de Mes congela el periodo y genera un snapshot en globalHistory",
+        "Las vistas históricas permiten auditar y filtrar transacciones previas sin perder datos"
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "Sincronización y Resiliencia",
+      "items": [
+        "Persistencia híbrida con Firebase Firestore como fuente única de verdad en la nube",
+        "LocalStorage almacena configuraciones de usuario como idioma (ES/EN) y símbolo de moneda"
+      ]
+    }
+  ]
+}

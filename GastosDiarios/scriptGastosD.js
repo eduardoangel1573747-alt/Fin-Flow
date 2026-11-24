@@ -78,9 +78,9 @@ async function initializeDailyExpenses() {
             !window.db ||
             !window.dbMethods
         ) {
-            console.warn(
-                'Firebase todavía no está disponible.'
-            );
+            window.financesLogger.warn('firebase_unavailable', {
+                module: 'daily_expenses'
+            });
 
             ensureDailyState();
             renderDailyView();
@@ -93,9 +93,10 @@ async function initializeDailyExpenses() {
 
         if (!user) {
 
-            console.warn(
-                'No hay usuario autenticado para cargar los gastos.'
-            );
+            window.financesLogger.warn('authentication_required', {
+                module: 'daily_expenses',
+                operation: 'load'
+            });
 
             window.location.href = '../pages/login.html';
 
@@ -105,10 +106,9 @@ async function initializeDailyExpenses() {
             return;
         }
 
-        console.log(
-            'Usuario autenticado:',
-            user.uid
-        );
+        window.financesLogger.info('authentication_ready', {
+            module: 'daily_expenses'
+        });
 
         const userLabel = document.getElementById('currentUserLabel');
         if (userLabel) {
@@ -136,16 +136,17 @@ async function initializeDailyExpenses() {
 
             window.dailyExpenses = normalizeDailyTransactions(firestoreData.dailyExpenses);
 
-            console.log(
-                'Datos recuperados desde Firestore:',
-                firestoreData
-            );
+            window.financesLogger.info('firestore_read_succeeded', {
+                module: 'daily_expenses',
+                operation: 'getDoc'
+            });
 
         } else {
 
-            console.log(
-                'El documento del usuario todavía no existe.'
-            );
+            window.financesLogger.info('firestore_document_missing', {
+                module: 'daily_expenses',
+                operation: 'getDoc'
+            });
 
             ensureDailyState();
         }
@@ -157,10 +158,10 @@ async function initializeDailyExpenses() {
 
     } catch (error) {
 
-        console.error(
-            'Error al recuperar los gastos desde Firestore:',
-            error
-        );
+        window.financesLogger.error('firestore_read_failed', error, {
+            module: 'daily_expenses',
+            operation: 'getDoc'
+        });
 
         ensureDailyState();
 
@@ -202,9 +203,10 @@ function waitForFirebase(timeout = 10000) {
                 Date.now() - start >= timeout
             ) {
 
-                console.warn(
-                    'Tiempo de espera agotado esperando Firebase.'
-                );
+                window.financesLogger.warn('firebase_wait_timeout', {
+                    module: 'daily_expenses',
+                    timeoutMs: timeout
+                });
 
                 resolve(false);
 
@@ -408,10 +410,10 @@ async function saveDailyExpenseToFirestore(event) {
         ensureDailyState().push(newTransaction);
 
 
-        console.log(
-            'Guardando transacción:',
-            newTransaction
-        );
+        window.financesLogger.info('firestore_write_started', {
+            module: 'daily_expenses',
+            operation: 'setDoc'
+        });
 
 
         // Documento del usuario
@@ -437,9 +439,10 @@ async function saveDailyExpenseToFirestore(event) {
         );
 
 
-        console.log(
-            'Estado guardado correctamente en Firestore.'
-        );
+        window.financesLogger.info('firestore_write_succeeded', {
+            module: 'daily_expenses',
+            operation: 'setDoc'
+        });
 
 
         dailyExpensesLoaded = true;
@@ -460,10 +463,10 @@ async function saveDailyExpenseToFirestore(event) {
 
     } catch (error) {
 
-        console.error(
-            'Error al guardar en Firestore:',
-            error
-        );
+        window.financesLogger.error('firestore_write_failed', error, {
+            module: 'daily_expenses',
+            operation: 'setDoc'
+        });
 
 
         alert(
@@ -985,7 +988,10 @@ async function deleteDailyExpense(transactionId) {
         }
     } catch (error) {
         window.dailyExpenses = previousExpenses;
-        console.error('Error al eliminar el gasto:', error);
+        window.financesLogger.error('expense_delete_failed', error, {
+            module: 'daily_expenses',
+            operation: 'setDoc'
+        });
         alert('No se pudo eliminar el gasto. Inténtalo nuevamente.');
     }
 }
@@ -1343,4 +1349,8 @@ window.addEventListener('scroll', function() {
         btn.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
         btn.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
     }
+});
+
+document.getElementById('backBtn').addEventListener('click', function() {
+    window.history.back();
 });

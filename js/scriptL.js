@@ -45,8 +45,17 @@ async function handleLogin(e) {
     }
     try {
         await window.dbMethods.signInWithEmailAndPassword(window.auth, email, password);
+        window.financesLogger.info('login_succeeded', {
+            module: 'authentication',
+            method: 'email_password'
+        });
         window.location.href = '../index.html';
     } catch (error) {
+        window.financesLogger.warn('login_failed', {
+            module: 'authentication',
+            method: 'email_password',
+            errorCode: error.code || 'unknown'
+        });
         if (err) {
             let msg = 'Correo o contraseña incorrectos.';
             if (error.code === 'auth/invalid-email') msg = 'El correo electrónico no es válido.';
@@ -86,6 +95,10 @@ async function handleRegister(e) {
             )
         );
         if (!existingUser.empty) {
+            window.financesLogger.warn('registration_rejected', {
+                module: 'authentication',
+                reason: 'username_unavailable'
+            });
             if (err) {
                 err.innerText = 'Este usuario ya está registrado.';
                 err.classList.remove('hidden');
@@ -113,8 +126,14 @@ async function handleRegister(e) {
             email: email,
             state: defaultState
         });
+        window.financesLogger.info('registration_succeeded', {
+            module: 'authentication'
+        });
         window.location.href = '../index.html';
     } catch (error) {
+        window.financesLogger.error('registration_failed', error, {
+            module: 'authentication'
+        });
         if (err) {
             let msg = 'Error al registrar: ' + error.message;
             if (error.code === 'auth/email-already-in-use') msg = 'Este correo ya está registrado.';
@@ -144,9 +163,16 @@ async function handleForgotPassword(e) {
     }
     try {
         await window.dbMethods.sendPasswordResetEmail(window.auth, email);
+        window.financesLogger.info('password_reset_requested', {
+            module: 'authentication'
+        });
         alert('Se ha enviado un enlace de recuperación a tu correo electrónico.');
         cancelForgot();
     } catch (error) {
+        window.financesLogger.warn('password_reset_failed', {
+            module: 'authentication',
+            errorCode: error.code || 'unknown'
+        });
         if (err) {
             err.innerText = 'Error al enviar correo: ' + error.message;
             err.classList.remove('hidden');

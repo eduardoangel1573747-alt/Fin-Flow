@@ -4,7 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Login - Fin Flow FPR</title>
+
+    <title data-i18n="pageTitleLogin">Login - Fin Flow FPR</title>
+
     <link rel="icon" type="image/png" href="../img/grafico-de-barras.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>tailwind.config = { darkMode: 'class' }</script>
@@ -13,193 +17,223 @@
 </head>
 <body class="bg-slate-900 text-slate-100 min-h-screen font-sans flex items-center justify-center px-4 transition-colors duration-300">
     <div id="authSection" class="w-full">
-        <div class="bg-slate-800 p-6 sm:p-8 rounded-2xl border border-slate-700 shadow-2xl max-w-md mx-auto space-y-6">
+        <div class="relative overflow-hidden bg-slate-900/90 backdrop-blur-2xl p-6 sm:p-8 rounded-2xl border border-slate-800 shadow-[0_20px_50px_rgba(16,_185,_129,_0.10)] max-w-md mx-auto space-y-6">
             
-            <div class="text-center space-y-2">
-                <div class="inline-flex p-3 bg-emerald-500/10 rounded-full text-emerald-400 mb-1">
-                    <i class="fa-solid fa-wallet text-3xl"></i>
+            <!-- Detalle luminoso superior -->
+            <div class="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-emerald-500/60 to-transparent"></div>
+
+            <!-- Cabecera de Autenticación -->
+            <div class="text-center space-y-2 border-b border-slate-800/80 pb-5">
+                <div class="inline-flex w-14 h-14 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-500/20 to-teal-500/10 border border-emerald-500/30 text-emerald-400 shadow-inner mb-1">
+                    <i class="fa-solid fa-wallet text-2xl"></i>
                 </div>
-                <h2 id="authTitle" class="text-2xl font-bold tracking-wide text-slate-100">Iniciar Sesión</h2>
-                <p id="authSubtitle" class="text-xs text-slate-400">Ingresa a tu panel de gestión financiera</p>
+                <h2 id="authTitle" class="text-2xl font-bold tracking-tight text-white" data-i18n="loginTitle">Iniciar Sesión</h2>
+                <p id="authSubtitle" class="text-xs text-slate-400" data-i18n="loginSubtitle">Ingresa a tu panel de gestión financiera</p>
             </div>
-            <div id="authSuccess" class="hidden text-xs text-emerald-400 bg-emerald-950/50 border border-emerald-800/50 p-3 rounded-lg text-center font-medium"></div>
+
+            <!-- Mensaje de Éxito Global -->
+            <div id="authSuccess" class="hidden text-xs text-emerald-300 bg-emerald-950/60 border border-emerald-500/30 p-3 rounded-xl text-center font-medium backdrop-blur-sm"></div>
+
             <!-- Formulario de LOGIN -->
-           <form id="loginForm" onsubmit="handleLogin(event)" class="space-y-5">
+            <form id="loginForm" onsubmit="handleLogin(event)" class="space-y-4 bg-slate-950/50 p-4 rounded-xl border border-slate-800/80">
                 
                 <!-- Campo: Correo Electrónico -->
                 <div>
-                    <label for="loginUsername" class="text-xs font-medium text-slate-300 block mb-1.5 tracking-wide">
-                        Correo Electrónico
+                    <label for="loginUsername" class="block text-[11px] uppercase tracking-wider font-bold text-slate-400 mb-1.5">
+                        <span data-i18n="emailLabel">Correo Electrónico</span>
                     </label>
                     <div class="relative">
+                        <i class="fa-solid fa-envelope absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-xs pointer-events-none"></i>
                         <input type="email" 
                             id="loginUsername" 
                             required 
                             autocomplete="email"
-                            placeholder="ejemplo@correo.com" 
-                            class="w-full bg-slate-800/80 border border-slate-600/80 rounded-xl px-3.5 py-2.5 text-sm text-slate-100 placeholder-slate-400/70 focus:outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/20 transition-all duration-200 shadow-sm">
+                            data-i18n-placeholder="emailPlaceholder" placeholder="ejemplo@correo.com"
+                            class="w-full bg-slate-900/90 border border-slate-700/70 rounded-xl pl-9 pr-3.5 py-2.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/30 transition-all duration-200">
                     </div>
                 </div>
 
                 <!-- Campo: Contraseña -->
                 <div>
                     <div class="flex justify-between items-center mb-1.5">
-                        <label for="loginPassword" class="text-xs font-medium text-slate-300 block tracking-wide">
-                            Contraseña
+                        <label for="loginPassword" class="block text-[11px] uppercase tracking-wider font-bold text-slate-400">
+                            <span data-i18n="passwordLabel">Contraseña</span>
                         </label>
                         <button type="button" 
                                 onclick="showForgotPasswordStep1()" 
-                                class="text-xs text-emerald-400 hover:text-emerald-300 font-medium transition-colors duration-150">
-                            ¿Olvidaste tu contraseña?
+                                class="text-[11px] text-emerald-400 hover:text-emerald-300 font-semibold transition-colors duration-150 cursor-pointer">
+                            <span data-i18n="forgotPassword">¿Olvidaste tu contraseña?</span>
                         </button>
                     </div>
                     <div class="relative">
+                        <i class="fa-solid fa-lock absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-xs pointer-events-none"></i>
                         <input type="password" 
                             id="loginPassword" 
                             required 
                             placeholder="••••••••" 
-                            class="w-full bg-slate-800/80 border border-slate-600/80 rounded-xl px-3.5 py-2.5 text-sm text-slate-100 placeholder-slate-400/70 focus:outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/20 transition-all duration-200 shadow-sm">
+                            class="w-full bg-slate-900/90 border border-slate-700/70 rounded-xl pl-9 pr-3.5 py-2.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/30 transition-all duration-200">
                     </div>
                 </div>
 
                 <!-- Contenedor de Error -->
-                <div id="loginError" class="hidden text-xs text-rose-300 bg-rose-950/40 border border-rose-800/60 p-3 rounded-xl text-center backdrop-blur-sm transition-all duration-200"></div>
+                <div id="loginError" class="hidden text-xs text-rose-300 bg-rose-950/50 border border-rose-500/30 p-3 rounded-xl text-center backdrop-blur-sm transition-all duration-200"></div>
 
                 <!-- Botón de Envío -->
                 <button type="submit" 
-                        class="w-full bg-emerald-500 hover:bg-emerald-400 active:bg-emerald-600 text-slate-950 font-semibold py-2.5 px-4 rounded-xl text-sm transition-all duration-200 shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/35 hover:-translate-y-0.5 active:translate-y-0">
-                    Ingresar
+                        class="w-full h-[42px] bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 active:scale-[0.98] text-slate-950 font-bold px-4 rounded-xl text-sm transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/25 hover:shadow-emerald-400/40 cursor-pointer">
+                    <i class="fa-solid fa-right-to-bracket text-xs shrink-0"></i>
+                    <span data-i18n="loginButton">Ingresar</span>
                 </button>
             </form>
+
             <!-- Formulario de REGISTRO -->
-            <form id="registerForm" onsubmit="handleRegister(event)" class="hidden space-y-4">
+            <form id="registerForm" onsubmit="handleRegister(event)" class="hidden space-y-3.5 bg-slate-950/50 p-4 rounded-xl border border-slate-800/80">
                 
                 <!-- Campos Nombres y Apellidos en Grilla -->
                 <div class="grid grid-cols-2 gap-3">
                     <div>
-                        <label for="regFirstName" class="text-xs font-medium text-slate-300 block mb-1.5 tracking-wide">
-                            Nombres
+                        <label for="regFirstName" class="block text-[11px] uppercase tracking-wider font-bold text-slate-400 mb-1.5">
+                            <span data-i18n="firstNameLabel">Nombres</span>
                         </label>
                         <input type="text" 
                             id="regFirstName" 
                             required 
                             placeholder="Juan" 
-                            class="w-full bg-slate-800/80 border border-slate-600/80 rounded-xl px-3 py-2 text-xs text-slate-100 placeholder-slate-400/70 focus:outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/20 transition-all duration-200 shadow-sm">
+                            class="w-full bg-slate-900/90 border border-slate-700/70 rounded-xl px-3 py-2 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/30 transition-all duration-200">
                     </div>
                     <div>
-                        <label for="regLastName" class="text-xs font-medium text-slate-300 block mb-1.5 tracking-wide">
-                            Apellidos
+                        <label for="regLastName" class="block text-[11px] uppercase tracking-wider font-bold text-slate-400 mb-1.5">
+                            <span data-i18n="lastNameLabel">Apellidos</span>
                         </label>
                         <input type="text" 
                             id="regLastName" 
                             required 
                             placeholder="Pérez" 
-                            class="w-full bg-slate-800/80 border border-slate-600/80 rounded-xl px-3 py-2 text-xs text-slate-100 placeholder-slate-400/70 focus:outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/20 transition-all duration-200 shadow-sm">
+                            class="w-full bg-slate-900/90 border border-slate-700/70 rounded-xl px-3 py-2 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/30 transition-all duration-200">
                     </div>
                 </div>
 
                 <!-- Campo: Usuario -->
                 <div>
-                    <label for="regUsername" class="text-xs font-medium text-slate-300 block mb-1.5 tracking-wide">
-                        Usuario
+                    <label for="regUsername" class="block text-[11px] uppercase tracking-wider font-bold text-slate-400 mb-1.5">
+                        <span data-i18n="usernameLabel">Usuario</span>
                     </label>
-                    <input type="text"
-                        id="regUsername"
-                        required
-                        minlength="3"
-                        pattern="[A-Za-z0-9_.-]+"
-                        autocomplete="username"
-                        placeholder="juan123"
-                        class="w-full bg-slate-800/80 border border-slate-600/80 rounded-xl px-3.5 py-2 text-xs text-slate-100 placeholder-slate-400/70 focus:outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/20 transition-all duration-200 shadow-sm">
-                    <p class="text-[10px] text-slate-500 mt-1">Usa letras, números, punto, guion o guion bajo.</p>
+                    <div class="relative">
+                        <i class="fa-solid fa-at absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-xs pointer-events-none"></i>
+                        <input type="text"
+                            id="regUsername"
+                            required
+                            minlength="3"
+                            pattern="[A-Za-z0-9_.-]+"
+                            autocomplete="username"
+                            placeholder="juan123"
+                            class="w-full bg-slate-900/90 border border-slate-700/70 rounded-xl pl-8 pr-3.5 py-2 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/30 transition-all duration-200">
+                    </div>
+                    <p class="text-[10px] text-slate-500 mt-1" data-i18n="usernameHint">Usa letras, números, punto, guion o guion bajo.</p>
                 </div>
 
                 <!-- Campo: Correo Electrónico -->
                 <div>
-                    <label for="regEmail" class="text-xs font-medium text-slate-300 block mb-1.5 tracking-wide">
-                        Correo Electrónico
+                    <label for="regEmail" class="block text-[11px] uppercase tracking-wider font-bold text-slate-400 mb-1.5">
+                        <span data-i18n="emailLabel">Correo Electrónico</span>
                     </label>
-                    <input type="email" 
-                        id="regEmail" 
-                        required 
-                        placeholder="juan@correo.com" 
-                        class="w-full bg-slate-800/80 border border-slate-600/80 rounded-xl px-3.5 py-2 text-xs text-slate-100 placeholder-slate-400/70 focus:outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/20 transition-all duration-200 shadow-sm">
+                    <div class="relative">
+                        <i class="fa-solid fa-envelope absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-xs pointer-events-none"></i>
+                        <input type="email" 
+                            id="regEmail" 
+                            required 
+                            placeholder="juan@correo.com" 
+                            class="w-full bg-slate-900/90 border border-slate-700/70 rounded-xl pl-8 pr-3.5 py-2 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/30 transition-all duration-200">
+                    </div>
                 </div>
 
                 <!-- Campo: Contraseña -->
                 <div>
-                    <label for="regPassword" class="text-xs font-medium text-slate-300 block mb-1.5 tracking-wide">
-                        Contraseña
+                    <label for="regPassword" class="block text-[11px] uppercase tracking-wider font-bold text-slate-400 mb-1.5">
+                        <span data-i18n="passwordLabel">Contraseña</span>
                     </label>
-                    <input type="password" 
-                        id="regPassword" 
-                        required 
-                        placeholder="••••••••" 
-                        class="w-full bg-slate-800/80 border border-slate-600/80 rounded-xl px-3.5 py-2 text-xs text-slate-100 placeholder-slate-400/70 focus:outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/20 transition-all duration-200 shadow-sm">
+                    <div class="relative">
+                        <i class="fa-solid fa-lock absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-xs pointer-events-none"></i>
+                        <input type="password" 
+                            id="regPassword" 
+                            required 
+                            placeholder="••••••••" 
+                            class="w-full bg-slate-900/90 border border-slate-700/70 rounded-xl pl-8 pr-3.5 py-2 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/30 transition-all duration-200">
+                    </div>
                 </div>
 
                 <!-- Contenedor de Error -->
-                <div id="registerError" class="hidden text-xs text-rose-300 bg-rose-950/40 border border-rose-800/60 p-2.5 rounded-xl text-center backdrop-blur-sm transition-all duration-200"></div>
+                <div id="registerError" class="hidden text-xs text-rose-300 bg-rose-950/50 border border-rose-500/30 p-2.5 rounded-xl text-center backdrop-blur-sm transition-all duration-200"></div>
 
                 <!-- Botón de Envío -->
                 <button type="submit" 
-                        class="w-full bg-emerald-500 hover:bg-emerald-400 active:bg-emerald-600 text-slate-950 font-semibold py-2.5 px-4 rounded-xl text-xs transition-all duration-200 shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/35 hover:-translate-y-0.5 active:translate-y-0 mt-2">
-                    Crear Cuenta
+                        class="w-full h-[42px] bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 active:scale-[0.98] text-slate-950 font-bold px-4 rounded-xl text-xs transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/25 hover:shadow-emerald-400/40 cursor-pointer mt-2">
+                    <i class="fa-solid fa-user-plus text-xs shrink-0"></i>
+                    <span data-i18n="registerButton">Crear Cuenta</span>
                 </button>
-
             </form>
+
             <!-- Formulario de RECUPERACIÓN (Vía Email Oficial de Firebase) -->
-            <form id="forgotForm" onsubmit="handleForgotPassword(event)" class="hidden space-y-5">
+            <form id="forgotForm" onsubmit="handleForgotPassword(event)" class="hidden space-y-4 bg-slate-950/50 p-4 rounded-xl border border-slate-800/80">
                 
                 <!-- Texto Descriptivo Informativo -->
-                <p class="text-xs text-slate-300 leading-relaxed bg-slate-800/40 border border-slate-700/60 p-3 rounded-xl">
-                    Ingresa tu correo registrado y te enviaremos un enlace para restablecer tu contraseña.
-                </p>
+                <div class="flex items-start gap-2.5 text-xs text-slate-300 leading-relaxed bg-slate-900/80 border border-slate-800 p-3 rounded-xl">
+                    <i class="fa-solid fa-circle-info text-emerald-400 mt-0.5 shrink-0"></i>
+                    <span data-i18n="forgotDescription">Ingresa tu correo registrado y te enviaremos un enlace para restablecer tu contraseña.</span>
+                </div>
 
                 <div class="space-y-4">
                     <!-- Campo: Correo Electrónico -->
                     <div>
-                        <label for="forgotSearchInput" class="text-xs font-medium text-slate-300 block mb-1.5 tracking-wide">
-                            Correo Electrónico
+                        <label for="forgotSearchInput" class="block text-[11px] uppercase tracking-wider font-bold text-slate-400 mb-1.5">
+                            <span data-i18n="emailLabel">Correo Electrónico</span>
                         </label>
-                        <input type="email" 
-                            id="forgotSearchInput" 
-                            required 
-                            placeholder="ejemplo@correo.com" 
-                            class="w-full bg-slate-800/80 border border-slate-600/80 rounded-xl px-3.5 py-2.5 text-sm text-slate-100 placeholder-slate-400/70 focus:outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/20 transition-all duration-200 shadow-sm">
+                        <div class="relative">
+                            <i class="fa-solid fa-envelope absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-xs pointer-events-none"></i>
+                            <input type="email" 
+                                id="forgotSearchInput" 
+                                required 
+                                placeholder="ejemplo@correo.com" 
+                                class="w-full bg-slate-900/90 border border-slate-700/70 rounded-xl pl-9 pr-3.5 py-2.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/30 transition-all duration-200">
+                        </div>
                     </div>
 
                     <!-- Botón de Envío -->
                     <button type="submit" 
-                            class="w-full bg-emerald-500 hover:bg-emerald-400 active:bg-emerald-600 text-slate-950 font-semibold py-2.5 px-4 rounded-xl text-xs transition-all duration-200 shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/35 hover:-translate-y-0.5 active:translate-y-0">
-                        Enviar Enlace de Recuperación
+                            class="w-full h-[42px] bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 active:scale-[0.98] text-slate-950 font-bold px-4 rounded-xl text-xs transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/25 hover:shadow-emerald-400/40 cursor-pointer">
+                        <i class="fa-solid fa-paper-plane text-xs shrink-0"></i>
+                        <span data-i18n="sendResetLink">Enviar Enlace de Recuperación</span>
                     </button>
                 </div>
 
                 <!-- Contenedor de Error -->
-                <div id="forgotError" class="hidden text-xs text-rose-300 bg-rose-950/40 border border-rose-800/60 p-3 rounded-xl text-center backdrop-blur-sm transition-all duration-200"></div>
+                <div id="forgotError" class="hidden text-xs text-rose-300 bg-rose-950/50 border border-rose-500/30 p-3 rounded-xl text-center backdrop-blur-sm transition-all duration-200"></div>
 
                 <!-- Botón Secundario: Volver -->
                 <button type="button" 
                         onclick="cancelForgot()" 
-                        class="w-full bg-slate-800/60 hover:bg-slate-700/80 text-slate-300 border border-slate-700/80 font-medium py-2 px-4 rounded-xl text-xs transition-all duration-200 active:scale-[0.99]">
-                    Volver
+                        class="w-full bg-slate-900/90 hover:bg-slate-800 text-slate-300 border border-slate-700/70 font-semibold py-2.5 px-4 rounded-xl text-xs transition-all duration-200 flex items-center justify-center gap-1.5 active:scale-[0.99] cursor-pointer">
+                    <i class="fa-solid fa-arrow-left text-[11px] shrink-0"></i>
+                    <span data-i18n="backBtn">Volver</span>
                 </button>
-
             </form>
-           <div class="pt-4 mt-2 border-t border-slate-700/60 text-center">
-            <p id="toggleAuthText" class="text-xs text-slate-400">
-                ¿No tienes una cuenta? 
-                <button onclick="toggleAuthMode()" 
-                        type="button"
-                        class="text-emerald-400 font-medium hover:text-emerald-300 hover:underline ml-1 transition-colors duration-150 focus:outline-none focus:ring-1 focus:ring-emerald-400/40 rounded-sm">
-                    Crear Cuenta
-                </button>
-            </p>
-        </div>
+
+            <!-- Footer Cambio de Modo -->
+            <div class="pt-4 border-t border-slate-800/80 text-center">
+                <p id="toggleAuthText" class="text-xs text-slate-400">
+                    <span data-i18n="noAccount">¿No tienes una cuenta?</span>
+                    <button onclick="toggleAuthMode()" 
+                            type="button"
+                            class="text-emerald-400 font-semibold hover:text-emerald-300 hover:underline ml-1 transition-colors duration-150 focus:outline-none cursor-pointer">
+                        <span data-i18n="registerButton">Crear Cuenta</span>
+                    </button>
+                </p>
+            </div>
         </div>
     </div>
     
+    <script src="../js/logger.js"></script>
+    <script src="../js/settings-global.js"></script>
     <script type="module">
     import "../config/firebase.js";
 

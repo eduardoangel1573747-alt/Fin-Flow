@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fin Flow FPR - Carteras & Cuentas</title>
+    <title data-i18n="pageTitleWallets">Fin Flow FPR - Carteras & Cuentas</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -51,83 +51,121 @@
 
     <!-- SIDEBAR OVERLAY -->
     <div id="sidebarBackdrop" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-40 hidden opacity-0 transition-opacity duration-300"></div>
-    <aside id="sidebar" aria-label="Menu principal" class="fixed top-0 left-0 h-full w-[85vw] sm:w-80 max-w-xs bg-slate-800 border-r border-slate-700 z-50 -translate-x-full transition-transform duration-300 ease-in-out flex flex-col shadow-2xl">
-        <div class="flex flex-col h-full overflow-hidden">
-            <div class="p-3.5 sm:p-4 border-b border-slate-700 flex items-center justify-between shrink-0 bg-slate-800/90">
-                <div class="flex items-center space-x-2.5">
-                    <i class="fa-solid fa-chart-pie text-emerald-400 text-lg sm:text-xl"></i>
-                    <span class="font-bold text-base sm:text-lg text-white">
-                        Módulos
+    <aside id="sidebar" aria-label="Menu principal" class="fixed top-0 left-0 h-full w-[85vw] sm:w-80 max-w-xs bg-slate-900/95 backdrop-blur-2xl border-r border-slate-800/90 z-50 -translate-x-full transition-transform duration-300 ease-in-out flex flex-col shadow-[0_25px_60px_rgba(0,_0,_0,_0.65)] overflow-hidden">
+    
+        <!-- Detalle luminoso superior + resplandores ambientales (acento púrpura para Cuentas Carteras) -->
+        <div class="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-purple-400/60 to-transparent z-20"></div>
+        <div class="absolute -left-10 -top-10 w-36 h-36 rounded-full bg-purple-500/10 blur-2xl pointer-events-none"></div>
+        <div class="absolute -right-10 bottom-16 w-36 h-36 rounded-full bg-indigo-500/10 blur-2xl pointer-events-none"></div>
+
+        <div class="relative z-10 flex flex-col h-full overflow-hidden">
+            
+            <!-- Header del Sidebar -->
+            <div class="p-3.5 sm:p-4 border-b border-slate-800/80 flex items-center justify-between shrink-0 bg-slate-950/40">
+                <div class="flex items-center gap-3">
+                    <span class="w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-500/20 to-teal-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shadow-inner shrink-0">
+                        <i class="fa-solid fa-chart-pie text-base sm:text-lg"></i>
                     </span>
+                    <div>
+                        <span class="font-bold text-base sm:text-lg text-white tracking-tight block leading-none">
+                            Módulos
+                        </span>
+                        <span class="text-[15px] font-medium text-slate-400 tracking-wide">Fin Flow</span>
+                    </div>
                 </div>
                 <button
+                    type="button"
                     onclick="toggleSidebar()"
                     aria-label="Cerrar menú"
-                    class="text-slate-400 hover:text-white p-2 rounded-lg hover:bg-slate-700 transition min-w-[40px] min-h-[40px]">
-                    <i class="fa-solid fa-xmark text-xl"></i>
+                    class="w-9 h-9 rounded-xl bg-slate-800/60 hover:bg-slate-800 border border-slate-700/60 text-slate-400 hover:text-white flex items-center justify-center transition-all active:scale-95 cursor-pointer">
+                    <i class="fa-solid fa-xmark text-base"></i>
                 </button>
             </div>
-            <nav class="p-3 sm:p-4 space-y-1 overflow-y-auto flex-1 custom-scroll">
 
-                <a href="../index.html  " onclick="toggleSidebar()" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-slate-700/70 transition">
-                    <i class="fa-solid fa-house text-emerald-400"></i>
+            <!-- Navegación Principal -->
+            <nav class="p-3 sm:p-4 space-y-1.5 overflow-y-auto flex-1 custom-scroll">
+
+                <a href="../index.html" onclick="toggleSidebar()" class="group flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300 hover:text-white bg-transparent hover:bg-slate-800/60 border border-transparent hover:border-slate-700/60 transition-all">
+                    <span class="w-8 h-8 rounded-lg bg-slate-950/60 border border-slate-800 group-hover:border-emerald-500/30 group-hover:bg-emerald-500/10 flex items-center justify-center text-emerald-400 transition-colors shrink-0">
+                        <i class="fa-solid fa-house text-xs"></i>
+                    </span>
                     <span class="text-sm font-medium">Dashboard Principal</span>
                 </a>
 
-                <div class="pt-3 pb-1">
-                        <p class="px-3 text-[10px] uppercase font-bold tracking-wider text-slate-500">
-                            Operaciones
-                        </p>
+                <!-- Categoría: Operaciones -->
+                <div class="pt-4 pb-1 px-2 flex items-center gap-2">
+                    <p class="text-[10px] uppercase font-bold tracking-widest text-slate-500">
+                        Operaciones
+                    </p>
+                    <div class="h-[1px] flex-1 bg-slate-800/80"></div>
                 </div>
-                
 
-                <a href="historialCartera.html" onclick="toggleSidebar()" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-slate-700/70 transition">
-                    <i class="fa-solid fa-clock-rotate-left text-teal-400"></i>
+                <a href="historialCartera.html" onclick="toggleSidebar()" class="group flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300 hover:text-white bg-transparent hover:bg-slate-800/60 border border-transparent hover:border-slate-700/60 transition-all">
+                    <span class="w-8 h-8 rounded-lg bg-slate-950/60 border border-slate-800 group-hover:border-teal-500/30 group-hover:bg-teal-500/10 flex items-center justify-center text-teal-400 transition-colors shrink-0">
+                        <i class="fa-solid fa-clock-rotate-left text-xs"></i>
+                    </span>
                     <span class="text-sm font-medium">Historial Cuentas</span>
                 </a>
 
-                <div class="pt-3 pb-1">
-                        <p class="px-3 text-[10px] uppercase font-bold tracking-wider text-slate-500">
-                            Gestión Avanzada
-                        </p>
+                <!-- Categoría: Gestión Avanzada -->
+                <div class="pt-4 pb-1 px-2 flex items-center gap-2">
+                    <p class="text-[10px] uppercase font-bold tracking-widest text-slate-500">
+                        Gestión Avanzada
+                    </p>
+                    <div class="h-[1px] flex-1 bg-slate-800/80"></div>
                 </div>
 
-                
-                <a href="CuentasCarteras.html" onclick="toggleSidebar()" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-white bg-slate-700/90 font-semibold">
-                    <i class="fa-solid fa-wallet text-purple-400"></i>
-                    <span class="text-sm">Cuentas Carteras</span>
+                <!-- Item Activo: Cuentas Carteras (Purple) -->
+                <a href="CuentasCarteras.html" onclick="toggleSidebar()" class="group relative overflow-hidden flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-white bg-gradient-to-r from-purple-500/20 to-indigo-500/5 border border-purple-500/30 font-semibold shadow-sm transition-all">
+                    <span class="w-8 h-8 rounded-lg bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-purple-400 shrink-0">
+                        <i class="fa-solid fa-wallet text-xs"></i>
+                    </span>
+                    <span class="text-sm tracking-tight flex-1">Cuentas Carteras</span>
+                    <span class="w-1.5 h-1.5 rounded-full bg-purple-400 shadow-[0_0_8px_rgba(192,132,252,0.85)]"></span>
                 </a>
 
-                <a href="../Objetivos/objetivosAhorros.html" onclick="toggleSidebar()" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-slate-700/70 transition">
-                    <i class="fa-solid fa-bullseye text-amber-400"></i>
+                <a href="../Objetivos/objetivosAhorros.html" onclick="toggleSidebar()" class="group flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300 hover:text-white bg-transparent hover:bg-slate-800/60 border border-transparent hover:border-slate-700/60 transition-all">
+                    <span class="w-8 h-8 rounded-lg bg-slate-950/60 border border-slate-800 group-hover:border-amber-500/30 group-hover:bg-amber-500/10 flex items-center justify-center text-amber-400 transition-colors shrink-0">
+                        <i class="fa-solid fa-bullseye text-xs"></i>
+                    </span>
                     <span class="text-sm font-medium">Objetivos de Ahorro</span>
                 </a>
 
-                <a href="../GastosDiarios/GastosDiarios.html" onclick="toggleSidebar()" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-slate-700/70 transition">
-                    <i class="fa-solid fa-receipt text-blue-400 text-base sm:text-sm"></i>
+                <a href="../GastosDiarios/GastosDiarios.html" onclick="toggleSidebar()" class="group flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300 hover:text-white bg-transparent hover:bg-slate-800/60 border border-transparent hover:border-slate-700/60 transition-all">
+                    <span class="w-8 h-8 rounded-lg bg-slate-950/60 border border-slate-800 group-hover:border-blue-500/30 group-hover:bg-blue-500/10 flex items-center justify-center text-blue-400 transition-colors shrink-0">
+                        <i class="fa-solid fa-receipt text-xs"></i>
+                    </span>
                     <span class="text-sm font-medium">Gastos Diarios</span>
                 </a>
 
-                <div class="pt-3 pb-1">
-                    <p class="px-3 text-[10px] uppercase font-bold tracking-wider text-slate-500">Ajustes</p>
+                <!-- Categoría: Ajustes -->
+                <div class="pt-4 pb-1 px-2 flex items-center gap-2">
+                    <p class="text-[10px] uppercase font-bold tracking-widest text-slate-500">Ajustes</p>
+                    <div class="h-[1px] flex-1 bg-slate-800/80"></div>
                 </div>
                     
-                <button onclick="openSettingsModal(); toggleSidebar();" class="w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-slate-700/70 transition group text-left">
-                    <i class="fa-solid fa-gear text-slate-400 group-hover:rotate-45 transition-transform"></i>
+                <button type="button" onclick="window.location.href='../pages/Ajustes.html'" class="group w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300 hover:text-white bg-transparent hover:bg-slate-800/60 border border-transparent hover:border-slate-700/60 transition-all text-left cursor-pointer">
+                    <span class="w-8 h-8 rounded-lg bg-slate-950/60 border border-slate-800 group-hover:border-slate-600 group-hover:bg-slate-800 flex items-center justify-center text-slate-400 group-hover:text-white transition-colors shrink-0">
+                        <i class="fa-solid fa-gear text-xs group-hover:rotate-45 transition-transform duration-300"></i>
+                    </span>
                     <span class="text-sm font-medium">Configuración de App</span>
                 </button>
 
             </nav>
 
-            <div class="p-3.5 sm:p-4 border-t border-slate-700 bg-slate-800/90">
-            <div class="flex items-center justify-between text-xs text-slate-400">
-                <span class="font-medium">
-                        Versión App
-                </span>
-                <span class="font-semibold text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/20">
-                        v5.0
-                </span>
+            <!-- Footer del Sidebar -->
+            <div class="p-3.5 sm:p-4 border-t border-slate-800/80 bg-slate-950/50 shrink-0">
+                <div class="flex items-center justify-between text-xs text-slate-400">
+                    <span class="font-medium flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                        <span>Versión App</span>
+                    </span>
+                    <span class="font-bold tabular-nums text-emerald-300 bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/20">
+                        v7.0
+                    </span>
+                </div>
             </div>
+
         </div>
     </aside>
 
@@ -135,138 +173,225 @@
     <main class="max-w-6xl w-full mx-auto p-4 sm:p-6 space-y-8 flex-1">
         
         <!-- SECCIÓN 1: CARTERAS (EFECTIVO / BILLETERAS) -->
-        <section class="bg-slate-800/60 backdrop-blur-xl p-4 sm:p-6 rounded-2xl border border-slate-700/70 shadow-2xl space-y-6">
-            <div class="flex items-center justify-between border-b border-slate-700/60 pb-4">
+        <section class="relative overflow-hidden bg-slate-900/90 backdrop-blur-2xl p-4 sm:p-6 rounded-2xl border border-slate-800 shadow-[0_20px_50px_rgba(16,_185,_129,_0.08)] space-y-6">
+    
+            <!-- Detalle luminoso superior -->
+            <div class="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-emerald-500/50 to-transparent"></div>
+
+            <!-- Header principal con badge decorativo -->
+            <div class="flex items-center justify-between border-b border-slate-800/80 pb-4">
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 shadow-inner">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500/20 to-teal-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shadow-inner">
                         <i class="fa-solid fa-wallet text-lg"></i>
                     </div>
                     <div>
-                        <h2 class="text-base sm:text-lg font-bold text-white leading-tight">Mis Carteras y Billeteras</h2>
+                        <h2 class="text-base sm:text-lg font-bold text-white leading-tight tracking-tight">
+                            Mis Carteras y Billeteras
+                        </h2>
                         <p class="text-xs text-slate-400">Gestiona tu dinero en efectivo y billeteras personales</p>
                     </div>
                 </div>
+                <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-300 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 rounded-full hidden sm:inline-flex">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                    Efectivo & Cuentas
+                </span>
             </div>
 
-            <!-- Formulario Crear Cartera -->
-            <form id="walletForm" onsubmit="createWallet(event)" class="grid grid-cols-1 sm:grid-cols-12 gap-3.5 bg-slate-900/50 p-3.5 rounded-xl border border-slate-700/50">
+            <!-- Formulario Crear Cartera (Mismas columnas y tamaños originales) -->
+            <form id="walletForm" onsubmit="createWallet(event)" class="grid grid-cols-1 sm:grid-cols-12 gap-3.5 bg-slate-950/50 p-3.5 rounded-xl border border-slate-800/80">
+                
+                <!-- Nombre de la Cartera (sm:col-span-6) -->
                 <div class="sm:col-span-6">
-                    <label class="block text-[11px] uppercase tracking-wider font-bold text-slate-400 mb-1.5">Nombre de la Cartera</label>
-                    <input type="text" id="walletName" placeholder="Ej. Billetera Principal, Efectivo Casa" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition">
+                    <label for="walletName" class="block text-[11px] uppercase tracking-wider font-bold text-slate-400 mb-1.5">Nombre de la Cartera</label>
+                    <input type="text" id="walletName" placeholder="Ej. Billetera Principal, Efectivo Casa" required 
+                        class="w-full bg-slate-900/90 border border-slate-700/70 rounded-xl px-3.5 py-2.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 transition-all">
                 </div>
+
+                <!-- Monto Inicial (sm:col-span-4) -->
                 <div class="sm:col-span-4">
-                    <label class="block text-[11px] uppercase tracking-wider font-bold text-slate-400 mb-1.5">Monto Inicial ($)</label>
-                    <input type="number" id="walletInitialAmount" step="0.01" min="0" placeholder="0.00" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm font-semibold text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition">
+                    <label for="walletInitialAmount" class="block text-[11px] uppercase tracking-wider font-bold text-slate-400 mb-1.5">Monto Inicial ($)</label>
+                    <input type="number" id="walletInitialAmount" step="0.01" min="0" placeholder="0.00" required 
+                        class="w-full bg-slate-900/90 border border-slate-700/70 rounded-xl px-3.5 py-2.5 text-sm font-semibold text-emerald-400 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 transition-all">
                 </div>
+
+                <!-- Botón Agregar (sm:col-span-2) -->
                 <div class="sm:col-span-2 flex items-end">
-                    <button type="submit" class="w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-bold py-2.5 px-3 rounded-xl text-xs sm:text-sm transition flex items-center justify-center gap-1.5 shadow-lg shadow-emerald-500/20 min-h-[42px]">
-                        <i class="fa-solid fa-plus-circle text-base"></i> Agregar
+                    <button type="submit" 
+                        class="w-full h-[42px] bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 active:scale-[0.98] text-slate-950 font-bold px-2.5 rounded-xl text-xs transition-all duration-200 flex items-center justify-center gap-1.5 shadow-lg shadow-emerald-500/25 hover:shadow-emerald-400/40 cursor-pointer whitespace-nowrap">
+                        <i class="fa-solid fa-plus-circle text-sm shrink-0"></i>
+                        <span>Agregar</span>
                     </button>
                 </div>
             </form>
 
+            <!-- Contenedor de Carteras -->
             <div id="walletsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <!-- Se renderizan Carteras -->
             </div>
+
         </section>
 
         <!-- SECCIÓN 2: CUENTAS BANCARIAS -->
-        <section class="bg-slate-800/60 backdrop-blur-xl p-4 sm:p-6 rounded-2xl border border-slate-700/70 shadow-2xl space-y-6">
-            <div class="flex items-center justify-between border-b border-slate-700/60 pb-4">
+        <section class="relative overflow-hidden bg-slate-900/90 backdrop-blur-2xl p-4 sm:p-6 rounded-2xl border border-slate-800 shadow-[0_20px_50px_rgba(6,_182,_212,_0.08)] space-y-6">
+    
+            <!-- Detalle luminoso superior -->
+            <div class="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent"></div>
+
+            <!-- Header principal con badge decorativo -->
+            <div class="flex items-center justify-between border-b border-slate-800/80 pb-4">
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 shadow-inner">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500/20 to-blue-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 shadow-inner">
                         <i class="fa-solid fa-building-columns text-lg"></i>
                     </div>
                     <div>
-                        <h2 class="text-base sm:text-lg font-bold text-white leading-tight">Mis Cuentas Bancarias</h2>
+                        <h2 class="text-base sm:text-lg font-bold text-white leading-tight tracking-tight">
+                            Mis Cuentas Bancarias
+                        </h2>
                         <p class="text-xs text-slate-400">Administra cuentas Monetarias, Ahorro o Tarjetas</p>
                     </div>
                 </div>
+                <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-cyan-300 bg-cyan-500/10 border border-cyan-500/20 px-3 py-1 rounded-full hidden sm:inline-flex">
+                    <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
+                    Banca & Tarjetas
+                </span>
             </div>
 
-            <!-- Formulario Crear Cuenta Bancaria -->
-            <form id="bankAccountForm" onsubmit="createBankAccount(event)" class="grid grid-cols-1 sm:grid-cols-12 gap-3.5 bg-slate-900/50 p-3.5 rounded-xl border border-slate-700/50">
+            <!-- Formulario Crear Cuenta Bancaria (Mismas columnas y tamaños originales) -->
+            <form id="bankAccountForm" onsubmit="createBankAccount(event)" class="grid grid-cols-1 sm:grid-cols-12 gap-3.5 bg-slate-950/50 p-3.5 rounded-xl border border-slate-800/80">
+                
+                <!-- Nombre del Banco (sm:col-span-3) -->
                 <div class="sm:col-span-3">
-                    <label class="block text-[11px] uppercase tracking-wider font-bold text-slate-400 mb-1.5">Nombre del Banco</label>
-                    <input type="text" id="bankName" placeholder="Ej. BANRURAL, BI, BAC" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 transition">
+                    <label for="bankName" class="block text-[11px] uppercase tracking-wider font-bold text-slate-400 mb-1.5">Nombre del Banco</label>
+                    <input type="text" id="bankName" placeholder="Ej. BANRURAL, BI, BAC" required 
+                        class="w-full bg-slate-900/90 border border-slate-700/70 rounded-xl px-3.5 py-2.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all">
                 </div>
+
+                <!-- Tipo de Cuenta (sm:col-span-3) -->
                 <div class="sm:col-span-3">
-                    <label class="block text-[11px] uppercase tracking-wider font-bold text-slate-400 mb-1.5">Tipo de Cuenta</label>
-                    <select id="accountType" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-cyan-500 transition min-h-[42px]">
-                        <option value="Monetaria">Monetaria</option>
-                        <option value="Ahorro">Ahorro</option>
-                        <option value="Tarjeta de Crédito">Tarjeta de Crédito</option>
-                    </select>
+                    <label for="accountType" class="block text-[11px] uppercase tracking-wider font-bold text-slate-400 mb-1.5">Tipo de Cuenta</label>
+                    <div class="relative">
+                        <select id="accountType" required 
+                            class="w-full bg-slate-900/90 border border-slate-700/70 rounded-xl pl-3.5 pr-8 py-2.5 text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all appearance-none cursor-pointer min-h-[42px]">
+                            <option value="Monetaria">Monetaria</option>
+                            <option value="Ahorro">Ahorro</option>
+                            <option value="Tarjeta de Crédito">Tarjeta de Crédito</option>
+                        </select>
+                        <div class="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none text-slate-400">
+                            <i class="fa-solid fa-chevron-down text-xs"></i>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- No. de Cuenta (sm:col-span-3) -->
                 <div class="sm:col-span-3">
-                    <label class="block text-[11px] uppercase tracking-wider font-bold text-slate-400 mb-1.5">No. de Cuenta</label>
-                    <input type="text" id="accountNumber" placeholder="Ej. 4001234567" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 transition">
+                    <label for="accountNumber" class="block text-[11px] uppercase tracking-wider font-bold text-slate-400 mb-1.5">No. de Cuenta</label>
+                    <input type="text" id="accountNumber" placeholder="Ej. 4001234567" required 
+                        class="w-full bg-slate-900/90 border border-slate-700/70 rounded-xl px-3.5 py-2.5 text-sm font-mono text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all">
                 </div>
+
+                <!-- Monto Inicial ($) (sm:col-span-3) -->
                 <div class="sm:col-span-3">
-                    <label class="block text-[11px] uppercase tracking-wider font-bold text-slate-400 mb-1.5">Monto Inicial ($)</label>
-                    <input type="number" id="accountInitialAmount" step="0.01" min="0" placeholder="0.00" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm font-semibold text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 transition">
+                    <label for="accountInitialAmount" class="block text-[11px] uppercase tracking-wider font-bold text-slate-400 mb-1.5">Monto Inicial ($)</label>
+                    <input type="number" id="accountInitialAmount" step="0.01" min="0" placeholder="0.00" required 
+                        class="w-full bg-slate-900/90 border border-slate-700/70 rounded-xl px-3.5 py-2.5 text-sm font-semibold text-cyan-300 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all">
                 </div>
-                <div class="sm:col-span-12 flex justify-end">
-                    <button type="submit" class="w-full sm:w-auto bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-slate-950 font-bold py-2.5 px-6 rounded-xl text-xs sm:text-sm transition flex items-center justify-center gap-1.5 shadow-lg shadow-cyan-500/20 min-h-[42px]">
-                        <i class="fa-solid fa-plus-circle text-base"></i> Agregar Cuenta Bancaria
+
+                <!-- Botón Agregar Cuenta Bancaria (sm:col-span-12) -->
+                <div class="sm:col-span-12 flex justify-end pt-1 border-t border-slate-800/60">
+                    <button type="submit" 
+                        class="w-full sm:w-auto h-[42px] bg-gradient-to-r from-cyan-500 to-blue-400 hover:from-cyan-400 hover:to-blue-300 active:scale-[0.98] text-slate-950 font-bold px-6 rounded-xl text-xs sm:text-sm transition-all duration-200 flex items-center justify-center gap-1.5 shadow-lg shadow-cyan-500/25 hover:shadow-cyan-400/40 cursor-pointer whitespace-nowrap">
+                        <i class="fa-solid fa-plus-circle text-base shrink-0"></i>
+                        <span>Agregar Cuenta Bancaria</span>
                     </button>
                 </div>
             </form>
 
+            <!-- Contenedor de Cuentas Bancarias -->
             <div id="bankAccountsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <!-- Se renderizan Cuentas Bancarias -->
             </div>
+
         </section>
 
     </main>
 
     <!-- MODAL MOVIMIENTO (INGRESO / EGRESO PARA CARTERA O CUENTA) -->
-    <div id="transactionModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-3.5 z-50 overflow-y-auto">
-        <div class="bg-slate-800 rounded-2xl max-w-md w-full p-5 border border-slate-700 shadow-2xl space-y-4 my-auto">
-            <div class="flex justify-between items-center border-b border-slate-700/60 pb-3">
-                <h3 id="modalTitle" class="text-base sm:text-lg font-bold text-emerald-400 flex items-center gap-2">
-                    <i class="fa-solid fa-arrow-right-arrow-left"></i> Registrar Gestión
+    <div id="transactionModal" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-3.5 z-50 overflow-y-auto">
+        <div class="relative overflow-hidden bg-slate-900/95 backdrop-blur-2xl rounded-2xl max-w-md w-full p-5 sm:p-6 border border-slate-800 shadow-[0_25px_60px_rgba(16,_185,_129,_0.12)] space-y-4 my-auto">
+            
+            <!-- Detalle luminoso superior -->
+            <div class="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-emerald-500/60 to-transparent"></div>
+
+            <!-- Header del Modal -->
+            <div class="flex justify-between items-center border-b border-slate-800/80 pb-3.5">
+                <h3 id="modalTitle" class="text-base sm:text-lg font-bold text-white tracking-tight flex items-center gap-2.5">
+                    <span class="w-8 h-8 rounded-xl bg-gradient-to-br from-emerald-500/20 to-teal-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shadow-inner shrink-0">
+                        <i class="fa-solid fa-arrow-right-arrow-left text-sm"></i>
+                    </span>
+                    <span>Registrar Gestión</span>
                 </h3>
-                <button onclick="closeTransactionModal()" class="text-slate-400 hover:text-white p-1 rounded-lg transition">
-                    <i class="fa-solid fa-xmark text-xl"></i>
+                <button type="button" onclick="closeTransactionModal()" class="w-8 h-8 rounded-xl bg-slate-800/60 hover:bg-slate-800 border border-slate-700/60 text-slate-400 hover:text-white flex items-center justify-center transition-all cursor-pointer">
+                    <i class="fa-solid fa-xmark text-base"></i>
                 </button>
             </div>
 
-            <form id="transactionForm" onsubmit="processTransaction(event)" class="space-y-3">
+            <!-- Formulario del Modal -->
+            <form id="transactionForm" onsubmit="processTransaction(event)" class="space-y-3 bg-slate-950/50 p-4 rounded-xl border border-slate-800/80">
                 <input type="hidden" id="modalTargetId">
                 <input type="hidden" id="modalTargetCategory"> <!-- 'wallet' or 'bank' -->
 
+                <!-- Tipo de Gestión -->
                 <div>
-                    <label class="text-[10px] text-slate-400 uppercase font-bold mb-1 block">Tipo de Gestión</label>
-                    <select id="modalTxType" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-sm text-white focus:ring-2 focus:ring-emerald-500 focus:outline-none min-h-[42px]">
-                        <option value="income">🟢 Ingreso (+)</option>
-                        <option value="expense">🔴 Egreso (-)</option>
-                    </select>
+                    <label for="modalTxType" class="text-[11px] text-slate-400 uppercase tracking-wider font-bold mb-1.5 block">Tipo de Gestión</label>
+                    <div class="relative">
+                        <select id="modalTxType" class="w-full bg-slate-900/90 border border-slate-700/70 rounded-xl pl-3.5 pr-9 py-2.5 text-sm font-medium text-slate-100 focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 focus:outline-none transition-all appearance-none cursor-pointer min-h-[42px]">
+                            <option value="income">🟢 Ingreso (+)</option>
+                            <option value="expense">🔴 Egreso (-)</option>
+                        </select>
+                        <div class="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none text-slate-400">
+                            <i class="fa-solid fa-chevron-down text-xs"></i>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- Motivo / Categoría -->
                 <div>
-                    <label class="text-[10px] text-slate-400 uppercase font-bold mb-1 block">Motivo / Categoría</label>
-                    <input type="text" id="modalReason" required placeholder="Ej. Pago de Sueldo, Pago de Servicios, Comida" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-sm text-white focus:ring-2 focus:ring-emerald-500 focus:outline-none min-h-[42px]">
+                    <label for="modalReason" class="text-[11px] text-slate-400 uppercase tracking-wider font-bold mb-1.5 block">Motivo / Categoría</label>
+                    <input type="text" id="modalReason" required placeholder="Ej. Pago de Sueldo, Pago de Servicios, Comida" 
+                        class="w-full bg-slate-900/90 border border-slate-700/70 rounded-xl px-3.5 py-2.5 text-sm text-slate-100 placeholder-slate-500 focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 focus:outline-none transition-all min-h-[42px]">
                 </div>
+
+                <!-- Monto ($) -->
                 <div>
-                    <label class="text-[10px] text-slate-400 uppercase font-bold mb-1 block">Monto ($)</label>
-                    <input type="number" id="modalAmount" step="0.01" min="0.01" required placeholder="0.00" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-sm text-white focus:ring-2 focus:ring-emerald-500 focus:outline-none min-h-[42px]">
+                    <label for="modalAmount" class="text-[11px] text-slate-400 uppercase tracking-wider font-bold mb-1.5 block">Monto ($)</label>
+                    <input type="number" id="modalAmount" step="0.01" min="0.01" required placeholder="0.00" 
+                        class="w-full bg-slate-900/90 border border-slate-700/70 rounded-xl px-3.5 py-2.5 text-sm font-semibold text-emerald-400 placeholder-slate-500 focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 focus:outline-none transition-all min-h-[42px]">
                 </div>
+
+                <!-- Descripción -->
                 <div>
-                    <label class="text-[10px] text-slate-400 uppercase font-bold mb-1 block">Descripción</label>
-                    <input type="text" id="modalDescription" required placeholder="Ej. Transferencia recibida por trabajo extra" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-sm text-white focus:ring-2 focus:ring-emerald-500 focus:outline-none min-h-[42px]">
+                    <label for="modalDescription" class="text-[11px] text-slate-400 uppercase tracking-wider font-bold mb-1.5 block">Descripción</label>
+                    <input type="text" id="modalDescription" required placeholder="Ej. Transferencia recibida por trabajo extra" 
+                        class="w-full bg-slate-900/90 border border-slate-700/70 rounded-xl px-3.5 py-2.5 text-sm text-slate-100 placeholder-slate-500 focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 focus:outline-none transition-all min-h-[42px]">
                 </div>
+
+                <!-- Fecha de Gestión -->
                 <div>
-                    <label class="text-[10px] text-slate-400 uppercase font-bold mb-1 block">Fecha de Gestión</label>
-                    <input type="date" id="modalDate" required class="w-full bg-slate-900 border border-slate-700 rounded-xl p-1 text-sm text-white focus:ring-2 focus:ring-emerald-500 focus:outline-none min-h-[42px]">
+                    <label for="modalDate" class="text-[11px] text-slate-400 uppercase tracking-wider font-bold mb-1.5 block">Fecha de Gestión</label>
+                    <input type="date" id="modalDate" required 
+                        class="w-full bg-slate-900/90 border border-slate-700/70 rounded-xl px-2.5 py-1 text-sm text-slate-100 focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 focus:outline-none transition-all scheme-dark min-h-[42px]">
                 </div>
+
+                <!-- Botón Guardar -->
                 <div class="pt-2">
-                    <button type="submit" class="w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-bold py-2.5 rounded-xl text-sm transition shadow-lg shadow-emerald-500/20">
-                        Guardar Gestión
+                    <button type="submit" 
+                        class="w-full h-[42px] bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 active:scale-[0.98] text-slate-950 font-bold px-4 rounded-xl text-sm transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/25 hover:shadow-emerald-400/40 cursor-pointer whitespace-nowrap">
+                        <i class="fa-solid fa-check-circle text-sm shrink-0"></i>
+                        <span>Guardar Gestión</span>
                     </button>
                 </div>
             </form>
         </div>
-
     </div>
 
     <div>
@@ -318,6 +443,7 @@
         </footer>
     </div>
 
+    <script src="../js/logger.js"></script>
     <script type="module" src="../config/firebase.js"></script>
 
     <!-- Script de Gestión de Cuentas y Carteras -->

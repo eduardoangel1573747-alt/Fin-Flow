@@ -113,6 +113,8 @@ Proyecto-Finanzas/
 │   ├── scriptAjustes.js                # Controlador de configuración de usuario
 │   ├── scriptL.js                      # Controlador de autenticación y sesiones
 │   ├── settings-global.js              # Manejo global de moneda, idioma y LocalStorage
+│   ├── inactividad.js                  # Cierre automarico a los 5m sin inactividad
+│   ├── logger.js                       # Funcion para verificar los logs del sitio
 │   └── slide.js                        # Control de navegación y menús colapsables
 ├── Objetivos/
 │   ├── objetivosAhorros.html           # Vista de metas de ahorro

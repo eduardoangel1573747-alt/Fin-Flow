@@ -1,6 +1,14 @@
 window.currencySymbol = window.currencySymbol || '$';
+const storedLanguage = localStorage.getItem('finances_lang');
+let currentLanguage = ['es', 'en', 'fr'].includes(storedLanguage) ? storedLanguage : 'es';
 let historyStorage = 'dailyExpenses';
 let historyLoadError = '';
+let historyLoadErrorKey = '';
+
+function getTranslation(key, fallback) {
+    const dictionary = window.getFinancesDictionary?.() || {};
+    return dictionary[key] || fallback;
+}
 
 // ============================================================
 // ESPERAR Y CARGAR DESDE FIRESTORE
@@ -51,8 +59,11 @@ function waitForAuthenticatedUser(timeout = 10000) {
 async function initDailyHistoryPage() {
     const firebaseReady = await waitForFirebase();
     if (!firebaseReady) {
-        historyLoadError = 'No se pudo conectar con Firebase. Recarga la página para intentarlo de nuevo.';
-        console.error(historyLoadError);
+        historyLoadErrorKey = 'dailyFirebaseUnavailable';
+        historyLoadError = getTranslation(historyLoadErrorKey, 'No se pudo conectar con Firebase. Recarga la página para intentarlo de nuevo.');
+        window.financesLogger.error('firebase_unavailable', new Error(historyLoadError), {
+            module: 'daily_expense_history'
+        });
         renderDailyHistoryPage();
         return;
     }
@@ -60,8 +71,11 @@ async function initDailyHistoryPage() {
     const user = await waitForAuthenticatedUser();
 
     if (!user) {
-        historyLoadError = 'No hay una sesión activa. Inicia sesión para consultar tus gastos.';
-        console.warn(historyLoadError);
+        historyLoadErrorKey = 'dailyNoSession';
+        historyLoadError = getTranslation(historyLoadErrorKey, 'No hay una sesión activa. Inicia sesión para consultar tus gastos.');
+        window.financesLogger.warn('authentication_required', {
+            module: 'daily_expense_history'
+        });
         renderDailyHistoryPage();
         return;
     }
@@ -90,8 +104,12 @@ async function initDailyHistoryPage() {
             historyStorage = 'dailyExpenses';
         }
     } catch (error) {
-        console.error("Error al leer de Firestore:", error);
-        historyLoadError = 'No se pudieron cargar tus gastos. Revisa tu conexión e inténtalo de nuevo.';
+        window.financesLogger.error('firestore_read_failed', error, {
+            module: 'daily_expense_history',
+            operation: 'getDoc'
+        });
+        historyLoadErrorKey = 'dailyLoadFailed';
+        historyLoadError = getTranslation(historyLoadErrorKey, 'No se pudieron cargar tus gastos. Revisa tu conexión e inténtalo de nuevo.');
         window.dailyExpenses = [];
     }
 
@@ -106,20 +124,23 @@ function populateMonthSelector() {
     const selector = document.getElementById('monthSelector');
     if (!selector) return;
 
+    const selectedMonth = selector.value;
     selector.innerHTML = '';
-    const months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
     const now = new Date();
 
     // Generar opciones para los últimos 12 meses
     for (let i = 0; i < 12; i++) {
         const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
         const val = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
-        const label = `${months[d.getMonth()]} ${d.getFullYear()}`;
+        const label = new Intl.DateTimeFormat(currentLanguage, { month: 'long', year: 'numeric' }).format(d);
         
         const opt = document.createElement('option');
         opt.value = val;
         opt.innerText = label;
         selector.appendChild(opt);
+    }
+    if (selectedMonth && Array.from(selector.options).some(option => option.value === selectedMonth)) {
+        selector.value = selectedMonth;
     }
 }
 
@@ -173,11 +194,12 @@ function renderDailyHistoryPage() {
 
     // Dibujar Tabla
     if (expenses.length === 0) {
-        const message = historyLoadError || 'No se encontraron gastos registrados para los criterios seleccionados.';
+        const messageKey = historyLoadErrorKey || 'dailyNoResults';
+        const message = getTranslation(messageKey, historyLoadError || 'No se encontraron gastos registrados para los criterios seleccionados.');
         tableBody.innerHTML = `
             <tr>
                 <td colspan="6" class="py-8 text-center text-slate-500 italic">
-                    ${escapeHtml(message)}
+                    <span data-i18n="${messageKey}">${escapeHtml(message)}</span>
                 </td>
             </tr>
         `;
@@ -198,7 +220,7 @@ function renderDailyHistoryPage() {
                 -${window.currencySymbol}${(Number(t.amount) || 0).toFixed(2)}
             </td>
             <td class="py-3 px-4 text-center">
-                <button onclick="deleteDailyExpense('${t.id}')" title="Eliminar Gasto" class="text-slate-500 hover:text-rose-400 p-1.5 transition">
+                <button onclick="deleteDailyExpense('${t.id}')" data-i18n-title="dailyDeleteExpense" title="Eliminar Gasto" class="text-slate-500 hover:text-rose-400 p-1.5 transition">
                     <i class="fa-solid fa-trash-can"></i>
                 </button>
             </td>
@@ -210,7 +232,7 @@ function renderDailyHistoryPage() {
 // ELIMINAR GASTO Y ACTUALIZAR FIRESTORE
 // ============================================================
 async function deleteDailyExpense(id) {
-    if (!confirm("¿Estás seguro de que deseas eliminar este gasto del historial?")) return;
+    if (!confirm(getTranslation('dailyConfirmDelete', '¿Estás seguro de que deseas eliminar este gasto del historial?'))) return;
 
     if (!Array.isArray(window.dailyExpenses)) return;
 
@@ -230,10 +252,13 @@ async function deleteDailyExpense(id) {
             window.state = { ...window.state, transactions: updatedExpenses };
         }
         renderDailyHistoryPage();
-        alert("Gasto eliminado exitosamente.");
+        alert(getTranslation('dailyDeleteSuccess', 'Gasto eliminado exitosamente.'));
     } catch (err) {
-        console.error("Error al borrar el registro en Firestore:", err);
-        alert("Ocurrió un error al intentar eliminar el registro.");
+        window.financesLogger.error('firestore_delete_failed', err, {
+            module: 'daily_expense_history',
+            operation: 'setDoc'
+        });
+        alert(getTranslation('dailyDeleteFailed', 'Ocurrió un error al intentar eliminar el registro.'));
     }
 }
 
@@ -262,6 +287,11 @@ function changeCurrency(symbol) {
 
 window.addEventListener('finances-settings-changed', event => {
     if (event.detail?.currency) changeCurrency(event.detail.currency);
+    if (event.detail?.language && event.detail.language !== currentLanguage) {
+        currentLanguage = event.detail.language;
+        populateMonthSelector();
+        renderDailyHistoryPage();
+    }
 });
 
 window.initDailyHistoryPage = initDailyHistoryPage;

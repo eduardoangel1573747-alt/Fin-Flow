@@ -46,7 +46,10 @@ async function addMovement(type, description, amount, categoryOrSource) {
             renderHistoryPage();
         }
     } catch (error) {
-        console.error("Error al guardar en Firebase:", error);
+        window.financesLogger.error('firestore_write_failed', error, {
+            module: 'wallet_history',
+            operation: 'setDoc'
+        });
     }
 }
 
@@ -116,7 +119,10 @@ async function loadUserHistoryData(uid) {
         populateMonthSelector();
         renderHistoryPage();
     } catch (err) {
-        console.error("Error cargando el historial:", err);
+        window.financesLogger.error('history_load_failed', err, {
+            module: 'wallet_history',
+            operation: 'getDoc'
+        });
     }
 }
 
@@ -168,7 +174,7 @@ function renderHistoryPage() {
     tbody.innerHTML = '';
 
     if (filtered.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="5" class="py-6 text-center text-slate-500">No hay movimientos registrados para este periodo.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="5" class="py-6 text-center text-slate-500" data-i18n="noHistoryMovements">No hay movimientos registrados para este periodo.</td></tr>`;
         return;
     }
 
@@ -179,15 +185,16 @@ function renderHistoryPage() {
 
         let badgeClass = "bg-slate-700 text-slate-300";
         let typeLabel = item.type;
+        let typeKey = '';
 
-        if (item.type === 'income') { badgeClass = "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"; typeLabel = "Ingreso"; }
-        else if (item.type === 'expense') { badgeClass = "bg-rose-500/10 text-rose-400 border border-rose-500/20"; typeLabel = "Gasto"; }
-        else if (item.type === 'receivable_payment') { badgeClass = "bg-cyan-500/10 text-cyan-400 border border-cyan-500/20"; typeLabel = "Cobro"; }
-        else if (item.type === 'debt_payment') { badgeClass = "bg-purple-500/10 text-purple-400 border border-purple-500/20"; typeLabel = "Pago Deuda"; }
+        if (item.type === 'income') { badgeClass = "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"; typeLabel = "Ingreso"; typeKey = 'incomeType'; }
+        else if (item.type === 'expense') { badgeClass = "bg-rose-500/10 text-rose-400 border border-rose-500/20"; typeLabel = "Gasto"; typeKey = 'expenseType'; }
+        else if (item.type === 'receivable_payment') { badgeClass = "bg-cyan-500/10 text-cyan-400 border border-cyan-500/20"; typeLabel = "Cobro"; typeKey = 'receivableType'; }
+        else if (item.type === 'debt_payment') { badgeClass = "bg-purple-500/10 text-purple-400 border border-purple-500/20"; typeLabel = "Pago Deuda"; typeKey = 'debtPaymentType'; }
 
         row.innerHTML = `
             <td class="py-3 px-4 font-mono text-xs text-slate-400">${item.date}</td>
-            <td class="py-3 px-4"><span class="px-2 py-1 text-[10px] font-semibold rounded-md ${badgeClass}">${typeLabel}</span></td>
+            <td class="py-3 px-4"><span ${typeKey ? `data-i18n="${typeKey}"` : ''} class="px-2 py-1 text-[10px] font-semibold rounded-md ${badgeClass}">${typeLabel}</span></td>
             <td class="py-3 px-4 font-medium text-slate-200">${item.description}</td>
             <td class="py-3 px-4 text-slate-400">${item.category}</td>
             <td class="py-3 px-4 text-right font-bold ${item.type === 'expense' || item.type === 'debt_payment' ? 'text-rose-400' : 'text-emerald-400'}">
