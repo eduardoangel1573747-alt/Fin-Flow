@@ -11,7 +11,7 @@
 
 ## 📋 Descripción General
 
-**Fin Flow FPR** (`Proyecto-Finanzas`) es una aplicación web progresiva y reactiva orientada a resolver el control financiero personal de forma transparente, visual y segura. Cuenta con una arquitectura desacoplada que sincroniza el estado de las transacciones con **Google Firebase Firestore** y ofrece persistencia híbrida en **LocalStorage** para configuraciones de interfaz.
+**Fin Flow FPR** (`Proyecto-Finanzas`) es una aplicación web progresiva y reactiva orientada a resolver el control financiero personal de forma transparente, visual y segura. Cuenta con una arquitectura desacoplada que sincroniza el estado de las transacciones con **Google Firebase Firestore** y ofrece persistencia híbrida en **LocalStorage** para configuraciones de interfaz siendo de **Codigo Abierto**.
 
 El flujo de trabajo, los carriles operativos y las dependencias de código han sido modelados y verificados con el estándar **Archify v2** en [`WorkFlow/workflow.json`](WorkFlow/workflow.json) y compilados en el visualizador interactivo [`workflow.html`](workflow.html).
 
