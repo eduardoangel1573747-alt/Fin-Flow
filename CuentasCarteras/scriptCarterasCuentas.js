@@ -496,6 +496,11 @@ window.addEventListener('scroll', function() {
     }
 });
 
-document.getElementById('backBtn').addEventListener('click', function() {
-    window.history.back();
+document.addEventListener('DOMContentLoaded', function () {
+  const backBtn = document.getElementById('backBtn');
+  if (backBtn) {
+    backBtn.addEventListener('click', function () {
+      window.history.back();
+    });
+  }
 });
